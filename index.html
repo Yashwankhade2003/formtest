@@ -1,323 +1,4296 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Zoho CRM WebToLead Form</title>
-  <!-- Google Fonts (optional, uncomment if needed) -->
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"> -->
-  <style>
-    /* --- Extracted CSS from test.css --- */
-    .multiselect-info-icon {
-      display: inline-block;
-      margin-left: 3px;
-      font-size: 14px;
-      color: #555;
-      cursor: pointer;
-      vertical-align: middle;
-      position: relative;
-    }
-    .multiselect-info-icon:hover::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      left: 20px;
-      bottom: 120%;
-      background: #1a1a1a;
-      color: #fff;
-      padding: 5px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-      white-space: nowrap;
-      z-index: 10;
-    }
-    .contact-header-wrapper {
-      text-align: left;
-      margin-bottom: 30px;
-    }
-    .hollow_title {
-      font-size: 5.75em;
-      line-height: 1.3em;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 200% 100%;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: black;
-      display: inline-block;
-      background-position: 100% center;
-      transition: 1s cubic-bezier(0, 0, 0.23, 1);
-      max-width: 100% !important;
-      padding: 0px;
-      margin: 0px !important;
-    }
-    h1 { text-transform: capitalize; }
-    .contact-subheading-bar {
-      width: 75px;
-      height: 4px;
-      background-color: #002A5C;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-    .contact-subheading {
-      font-size: 24px;
-      font-weight: 700;
-      font-family: Arial, sans-serif;
-      color: #1A1A1A;
-      margin: 0;
-    }
-    .zcwf_col_lab, .zcwf_col_fld {
-      display: block !important;
-      width: 100% !important;
-      float: none !important;
-    }
-    .custom-multiselect { position: relative; font-size: 14px; }
-    .selected-options {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fff;
-      cursor: pointer;
-      color: #333;
-    }
-    .checkbox-list {
-      position: absolute;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-      margin-top: 5px;
-      display: none;
-      z-index: 999;
-      width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
-      padding: 10px;
-    }
-    .checkbox-list label { display: block; padding: 5px 0; cursor: pointer; }
-    .checkbox-list input[type="checkbox"] { margin-right: 10px; }
-    #LEADCF30 { display: none; }
-    .multiselect-wrapper { position: relative; width: 100%; font-family: Arial, sans-serif; }
-    .multiselect-display {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #fff;
-      position: relative;
-    }
-    .multiselect-options {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background-color: white;
-      border: 1px solid #ccc;
-      border-top: none;
-      max-height: 200px;
-      overflow-y: auto;
-      z-index: 1000;
-      display: none;
-    }
-    .multiselect-options div.option {
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-    .multiselect-options div.option:hover {
-      background-color: #f0f0f0;
-    }
-    .multiselect-options .selected {
-      background-color: #e0e0ff;
-      font-weight: bold;
-    }
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { margin: 0; background-color: #f4f7fa; padding: 20px; }
-    #crmWebToEntityForm {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-      margin: auto;
-      padding: 40px 30px;
-      color: #333;
-    }
-    .zcwf_title {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0279FF;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    .zcwf_col_lab {
-      width: 100%;
-      font-weight: 500;
-      color: #555;
-      margin-bottom: 6px;
-    }
-    .zcwf_col_fld input[type="text"],
-    .zcwf_col_fld input[type="email"],
-    .zcwf_col_fld select,
-    .zcwf_col_fld textarea {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #fff;
-      transition: border-color 0.3s;
-    }
-    .zcwf_col_fld1 input:focus,
-    .zcwf_col_fld1 select:focus,
-    .zcwf_col_fld1 textarea:focus,
-    .zcwf_col_fld input:focus,
-    .zcwf_col_fld select:focus,
-    .zcwf_col_fld textarea:focus {
-      border-color: #0279FF;
-      outline: none;
-      box-shadow: 0 0 5px #0279FF;
-    }
-    .zcwf_row { margin-bottom: 20px; }
-    .zcwf_col_fld_slt {
-      width: 100% !important;
-      appearance: none;
-      background: #fff url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
-      background-size: 20px;
-      padding-right: 30px !important;
-    }
-    .zcwf_button {
-      background: linear-gradient(90deg, #0279FF, #00A3F3);
-      color: white !important;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      max-width: 100%;
-    }
-    .zcwf_button:hover {
-      background: linear-gradient(90deg, #006be4, #0285cc);
-    }
-    @media (max-width: 768px) {
-      #crmWebToEntityForm { padding: 20px; }
-      .zcwf_col_lab, .zcwf_col_fld { width: 100% !important; float: none !important; }
-      .hollow_title { font-size: 3.5em !important; -webkit-text-stroke-width: 0.8px; }
-      .contact-subheading { font-size: 18px; }
-      .contact-subheading-bar { width: 50px; height: 3px; }
-    }
-    body, input, select, textarea, button {
-      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      color: #333;
-    }
-    #crmWebToEntityForm {
-      background: #fff;
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 800px;
-      margin: 40px auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-    .zcwf_title {
-      font-size: 28px;
-      color: #1a73e8;
-      margin-bottom: 30px;
-      text-align: center;
-      font-weight: 600;
-    }
-    .zcwf_col_lab label {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #555;
-    }
-    .zcwf_col_fld input[type="text"],
-    .zcwf_col_fld1 input[type="text"],
-    .zcwf_col_fld input[type="email"],
-    .zcwf_col_fld select,
-    .zcwf_col_fld textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #fff;
-      transition: 0.3s ease;
-    }
-    .zcwf_col_fld input:focus,
-    .zcwf_col_fld select:focus,
-    .zcwf_col_fld textarea:focus {
-      border-color: #1a73e8;
-      background: #fff;
-      outline: none;
-      box-shadow: 0 0 5px rgba(26, 115, 232, 0.3);
-    }
-    .zcwf_col_fld1 input:focus,
-    .zcwf_col_fld1 select:focus,
-    .zcwf_col_fld1 textarea:focus {
-      border-color: #0279FF;
-      background: #fff;
-      outline: none;
-      box-shadow: 0 0 5px #0279FF;
-    }
-    .zcwf_button {
-      background: linear-gradient(90deg, #1a73e8, #4285f4);
-      border: none;
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 15px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .zcwf_button:hover {
-      background: linear-gradient(90deg, #1669d6, #357ae8);
-    }
-    .mobile-input-group { display: flex; gap: 10px; flex-wrap: nowrap; align-items: center; }
-    .mobile-input-group select, .mobile-input-group input[type="text"] { flex: 1 1 auto; min-width: 0; }
-    .mobile-input-group select { max-width: 100px; }
-    @media only screen and (max-width: 480px) {
-      .mobile-input-group { flex-direction: row; flex-wrap: nowrap; }
-      .mobile-input-group select { width: 200px; }
-      .mobile-input-group input[type="text"] { width: 100%; }
-      .hollow_title { font-size: 2.5em !important; -webkit-text-stroke-width: 0.6px; }
-      .contact-subheading { font-size: 16px; }
-      .contact-subheading-bar { width: 40px; height: 2px; }
-      #LEADCF118, select[name="LEADCF118hour"], select[name="LEADCF118minute"], select[name="LEADCF118ampm"] { width: 100% !important; margin-bottom: 10px; }
-      #LEADCF117, select[name="LEADCF117hour"], select[name="LEADCF117minute"], select[name="LEADCF117ampm"] { width: 100% !important; margin-bottom: 10px; }
-      .zcwf_col_fld2 { display: flex; flex-direction: column; }
-    }
-    @media screen and (max-width: 768px) {
-      #crmWebToEntityForm { padding: 25px; }
-      .zcwf_col_lab, .zcwf_col_fld { width: 100% !important; float: none !important; }
-    }
-    @media only screen and (max-width: 480px) {
-      #crmWebToEntityForm { padding: 20px 15px; }
-      .zcwf_row { flex-direction: column; }
-      .zcwf_col_fld1 { width: 100% !important; float: none !important; text-align: left; }
-      .multiselect-wrapper, .multiselect-display, .multiselect-options { font-size: 13px; }
-      select, input[type="text"], input[type="email"], textarea { font-size: 14px; padding: 10px 12px; }
-    }
-    @media only screen and (max-width: 480px) { .mobile-flex-group { flex-wrap: wrap; } }
-    @media only screen and (min-width: 481px) and (max-width: 768px) { .zcwf_col_fld1 { width: 100% !important; float: none !important; } .multiselect-wrapper { font-size: 14px; } }
-    @media only screen and (min-width: 769px) and (max-width: 1024px) { #crmWebToEntityForm { padding: 35px 30px; } .zcwf_col_lab, .zcwf_col_fld { width: 100%; } }
-  </style>
-</head>
-<body>
-<!-- Begin Zoho CRM WebToLead Form -->
-<div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm' style='background-color: white;color: black;max-width: 600px;'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <meta http-equiv='content-type' content='text/html;charset=UTF-8'>
-  <form id='webform894911000000429795' action='https://crm.zoho.in/crm/WebToLeadForm' name='WebToLeads894911000000429795' method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory894911000000429795()' accept-charset='UTF-8'>
-    <input type='text' style='display:none;' name='xnQsjsdp' value='fcf015076e4c2a17b198c8357a56e1e594900461a82873614434146b23ffd673'>
-    <input type='hidden' name='zc_gad' id='zc_gad' value=''>
-    <input type='text' style='display:none;' name='xmIwtLD' value='18bbf16792a6d250d3a3403535f1ec796868ddb1c94fc3b68fd69adc931393fcfb03229b0c459826fcc1f056e15cbd7f'>
-    <input type='text' style='display:none;' name='actionType' value='TGVhZHM='>
-    <input type='text' style='display:none;' name='returnURL' value='null'>
-    <!-- The rest of the form fields, select, and scripts go here. -->
-    <!-- For brevity, please copy the full form HTML and scripts from your test.css file as extracted above. -->
-  </form>
+<div id = 'crmWebToEntityForm' class = 'zcwf_lblLeft crmWebToEntityForm' style = 'background-color: white;color: black;max-width: 600px;'>
+	<meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>
+		<META HTTP-EQUIV = 'content-type' CONTENT = 'text/html;charset=UTF-8'>
+		  <!--<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">-->
+
+			<form id = 'webform894911000000429795' action = 'https://crm.zoho.in/crm/WebToLeadForm' name = WebToLeads894911000000429795 method = 'POST' onSubmit = 'javascript:document.charset="UTF-8"; return checkMandatory894911000000429795()' accept-charset = 'UTF-8'>
+				<input type = 'text' style = 'display:none;' name = 'xnQsjsdp' value = 'fcf015076e4c2a17b198c8357a56e1e594900461a82873614434146b23ffd673'>
+				</input>
+				<input type = 'hidden' name = 'zc_gad' id = 'zc_gad' value = ''>
+				</input>
+				<input type = 'text' style = 'display:none;' name = 'xmIwtLD' value = '18bbf16792a6d250d3a3403535f1ec796868ddb1c94fc3b68fd69adc931393fcfb03229b0c459826fcc1f056e15cbd7f'>
+				</input>
+				<input type = 'text' style = 'display:none;' name = 'actionType' value = 'TGVhZHM='>
+				</input>
+				<input type = 'text' style = 'display:none;' name = 'returnURL' value = 'null'>
+				</input>
+				<!-- Do not remove this code. -->
+				<style>
+				
+			.multiselect-info-icon {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+}
+
+.multiselect-info-icon:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 20px;
+  bottom: 120%;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+				
+			
+	.contact-header-wrapper {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.hollow_title {
+    font-size: 5.75em;
+    /*font-family: National-SemiBold;*/
+    line-height: 1.3em;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    display: inline-block;
+    background-position: 100% center;
+    background-position-x: ;
+    background-position-y: ;
+    transition: 1s cubic-bezier(0, 0, 0.23, 1);
+}
+
+
+.hollow_title {
+    font-size: 5.75em !important;
+    line-height: 1.3em !important;
+    max-width: 100% !important;
+    padding: 0px;
+    margin: 0px !important;
+}
+
+h1{
+  text-transform: capitalize;
+}
+
+.contact-subheading-bar {
+  width: 75px;
+  height: 4px;
+  background-color: #002A5C;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.contact-subheading {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  color: #1A1A1A;
+  margin: 0;
+}
+
+	
+	
+				
+		.zcwf_col_lab,
+.zcwf_col_fld {
+  display: block !important;
+  width: 100% !important;
+  float: none !important;
+}
+		
+				
+				
+				
+				.custom-multiselect {
+  position: relative;
+  font-size: 14px;
+}
+
+.selected-options {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  color: #333;
+}
+
+.checkbox-list {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  margin-top: 5px;
+  display: none;
+  z-index: 999;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.checkbox-list label {
+  display: block;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.checkbox-list input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+				
+				
+				
+				/* Hide the original multiselect */
+   /* Hide the original multiselect */
+  #LEADCF30 {
+    display: none;
+  }
+
+  .multiselect-wrapper {
+    position: relative;
+    width: 100%;
+    font-family: Arial, sans-serif;
+  }
+
+  .multiselect-display {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #fff;
+    position: relative;
+  }
+
+  .multiselect-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+
+  .multiselect-options div.option {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .multiselect-options div.option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .multiselect-options .selected {
+    background-color: #e0e0ff;
+    font-weight: bold;
+  }
+  
+				
+				/* Base Reset */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f7fa;
+  padding: 20px;
+}
+
+/* Form Container */
+#crmWebToEntityForm {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 30px;
+  color: #333;
+}
+
+/* Title */
+.zcwf_title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0279FF;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Labels */
+.zcwf_col_lab {
+  width: 100%;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* Input Fields */
+.zcwf_col_fld input[type="text"],
+.zcwf_col_fld input[type="email"],
+.zcwf_col_fld select,
+.zcwf_col_fld textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.zcwf_col_fld1 input:focus,
+.zcwf_col_fld1 select:focus,
+.zcwf_col_fld1 textarea:focus
+{
+  border-color: #0279FF;
+  outline: none;
+}
+
+.zcwf_col_fld input:focus,
+.zcwf_col_fld select:focus,
+.zcwf_col_fld textarea:focus {
+  border-color: #0279FF;
+  outline: none;
+}
+
+/* Rows */
+.zcwf_row {
+  margin-bottom: 20px;
+}
+
+/* Select Fields */
+.zcwf_col_fld_slt {
+  width: 100% !important;
+  appearance: none;
+  background: #fff url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center;
+  background-size: 20px;
+  padding-right: 30px !important;
+}
+
+/* Submit Button */
+.zcwf_button {
+  background: linear-gradient(90deg, #0279FF, #00A3F3);
+  color: white !important;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  max-width: 100%;
+}
+
+.zcwf_button:hover {
+  background: linear-gradient(90deg, #006be4, #0285cc);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #crmWebToEntityForm {
+    padding: 20px;
+  }
+
+  .zcwf_col_lab,
+  .zcwf_col_fld {
+    width: 100% !important;
+    float: none !important;
+  }
+  
+  .hollow_title {
+    font-size: 3.5em !important;
+    -webkit-text-stroke-width: 0.8px;
+  }
+
+  .contact-subheading {
+    font-size: 18px;
+  }
+
+  .contact-subheading-bar {
+    width: 50px;
+    height: 3px;
+  }
+
+}
+
+				
+				
+		/* --- Modern Font and Layout Reset --- */
+body, input, select, textarea, button {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* --- Form Container --- */
+#crmWebToEntityForm {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 800px;
+  margin: 40px auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* --- Section Title --- */
+.zcwf_title {
+  font-size: 28px;
+  color: #1a73e8;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* --- Label Styling --- */
+.zcwf_col_lab label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+/* --- Input Styling --- */
+.zcwf_col_fld input[type="text"],
+.zcwf_col_fld1 input[type="text"],
+.zcwf_col_fld input[type="email"],
+.zcwf_col_fld select,
+.zcwf_col_fld textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  transition: 0.3s ease;
+}
+
+.zcwf_col_fld input:focus,
+.zcwf_col_fld select:focus,
+.zcwf_col_fld textarea:focus {
+  border-color: #1a73e8;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.3);
+  
+}
+.zcwf_col_fld1 input:focus,
+.zcwf_col_fld1 select:focus,
+.zcwf_col_fld1 textarea:focus {
+  border-color: #0279FF;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 5px #0279FF;
+}
+
+/* --- Submit Button --- */
+.zcwf_button {
+  background: linear-gradient(90deg, #1a73e8, #4285f4);
+  border: none;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.zcwf_button:hover {
+  background: linear-gradient(90deg, #1669d6, #357ae8);
+}
+
+/* --- Flex Row Adjustments --- */
+.zcwf_row {
+  margin-bottom: 20px;
+}
+
+/* Keep mobile number and country code in one line */
+.mobile-input-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+/* Ensure both elements are responsive */
+.mobile-input-group select,
+.mobile-input-group input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Optional: Fix select width for balance */
+.mobile-input-group select {
+  max-width: 100px;
+}
+
+/* Fix on small screens */
+@media only screen and (max-width: 480px) {
+  .mobile-input-group {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .mobile-input-group select {
+    width: 200px;
+  }
+
+  .mobile-input-group input[type="text"] {
+    width: 100%;
+  }
+  .hollow_title {
+    font-size: 2.5em !important;
+    -webkit-text-stroke-width: 0.6px;
+  }
+
+  .contact-subheading {
+    font-size: 16px;
+  }
+
+  .contact-subheading-bar {
+    width: 40px;
+    height: 2px;
+  }
+  
+  #LEADCF118,
+  select[name="LEADCF118hour"],
+  select[name="LEADCF118minute"],
+  select[name="LEADCF118ampm"] {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+  
+  #LEADCF117,
+  select[name="LEADCF117hour"],
+  select[name="LEADCF117minute"],
+  select[name="LEADCF117ampm"] {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+  /* Optional: make them stack vertically */
+  .zcwf_col_fld2 {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
+/* --- Responsive Adjustments --- */
+@media screen and (max-width: 768px) {
+  #crmWebToEntityForm {
+    padding: 25px;
+  }
+
+  .zcwf_col_lab, .zcwf_col_fld {
+    width: 100% !important;
+    float: none !important;
+  }
+}
+
+
+
+
+
+/* Mobile - up to 480px */
+@media only screen and (max-width: 480px) {
+  #crmWebToEntityForm {
+    padding: 20px 15px;
+  }
+
+  .zcwf_row {
+    flex-direction: column;
+  }
+
+  
+  .zcwf_col_fld1 {
+    width: 100% !important;
+    float: none !important;
+    text-align: left;
+  }
+
+  
+
+  .multiselect-wrapper,
+  .multiselect-display,
+  .multiselect-options {
+    font-size: 13px;
+  }
+
+  select,
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+
+/* Responsive fix to prevent wrapping on very small screens */
+@media only screen and (max-width: 480px) {
+  .mobile-flex-group {
+    flex-wrap: wrap; /* allow wrapping if absolutely needed */
+  }
+}
+
+
+/* Tablets - 481px to 768px */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+ 
+
+  
+  .zcwf_col_fld1 {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  /*.zcwf_button {*/
+  /*  width: 50%;*/
+  /*}*/
+
+  .multiselect-wrapper {
+    font-size: 14px;
+  }
+}
+
+/* Small desktops - 769px to 1024px */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  #crmWebToEntityForm {
+    padding: 35px 30px;
+  }
+
+  .zcwf_col_lab,
+  .zcwf_col_fld {
+    width: 100%;
+  }
+
+  /*.zcwf_button {*/
+  /*  padding: 14px 25px;*/
+  /*}*/
+}
+
+
+
+
+
+
+				</style>
+					<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+  <!--<img src="https://creatorapp.zohopublic.in/file/zoho_admin_sanathan/sanathan-textiles/All_Sanathan_Logos/294162000000035007/Logos/image-download/m8BnbnG4uDmaEEK3AYpzu1uhb6apyKyQkV1r55dSvKyTHUQBjpuhdW5NVQ5K3WfJtuDjZ5EOGxEkCw8xNr4uuYnekKzyHjPpVvVx?filepath=/1750423999479304_finalLogo-removebg-preview.png"-->
+  <!--     alt="Logo"-->
+  <!--     style="height: 80px; max-height: 100px; object-fit: contain;" />-->
+				<div class="contact-header-wrapper">
+  <h1 class="hollow_title">Contact Us</h1>
+  <div class="contact-subheading-bar"></div>
+  <h2 class="contact-subheading">Say Hello To Us!</h2>
 </div>
-<!-- End Zoho CRM WebToLead Form -->
-</body>
-</html> 
+  
+  
+		</div>
+			
+			
+		
+
+				<div class = 'zcwf_row wfrm_fld_dpNn' style="display:none">
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'Lead_Source'>
+							Lead Source
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'Lead_Source' onChange = 'addAriaSelected894911000000429795()' aria-required = 'false' aria-label = 'Lead Source' name = 'Lead Source'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Calls'>
+								Calls
+							</option>
+							<option value = 'Email'>
+								Email
+							</option>
+							<option selected value= 'Website'>
+								Website
+							</option>
+							<option value = 'Whatsapp'>
+								WhatsApp
+							</option>
+							<option value = 'Trade&#x20;Shows'>
+								Trade Shows
+							</option>
+							<option value = 'Reference'>
+								Reference
+							</option>
+							<option value = 'Other'>
+								Other
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+			
+				
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'First_Name' style="color:black;">
+							First Name
+							<span style = 'color:red;'>
+								*
+							</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'First_Name' aria-required = 'true' aria-label = 'First Name' name = 'First Name' aria-valuemax = '40' maxlength = '40'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'Last_Name' style="color:black;">
+							Last Name
+							<span style = 'color:red;'>
+								*
+							</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'Last_Name' aria-required = 'true' aria-label = 'Last Name' name = 'Last Name' aria-valuemax = '80' maxlength = '80'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+			
+
+<!-- Agent Company Name Field -->
+<!--<div class="zcwf_row" id="agentCompanyField" style="display: none;">-->
+<!--  <div class="zcwf_col_lab" style="font-size:12px; font-family: Arial; display: block;">-->
+<!--    <label for="LEADCF21">Agent Company Name</label>-->
+<!--  </div>-->
+<!--  <div class="zcwf_col_fld" style="display: block;">-->
+<!--    <input type="text" id="LEADCF21" name="LEADCF21" maxlength="255" style="width: 100%;" />-->
+<!--    <div class="zcwf_col_help"></div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'Email' style="color:black;">
+							Email
+							<span style = 'color:red;'>
+								*
+							</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' ftype = 'email' autocomplete = 'false' id = 'Email' aria-required = 'true' aria-label = 'Email' name = 'Email' aria-valuemax = '100' crmlabel = '' maxlength = '100'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+			
+
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF48' style="color:black;">
+							Mobile
+							<span style = 'color:red;'>
+								*
+						</span>
+						</label>
+						
+					</div>
+				<div class = "zcwf_col_fld1 mobile-input-group">
+						<select class = 'zcwf_col_fld_slt1' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF48' onChange = 'addAriaSelected894911000000429795()' aria-required = 'false' aria-label = 'LEADCF48' name = 'LEADCF48' style="width:90px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Afghanistan&#x20;&#x28;&#x2b;93&#x29;'>
+								Afghanistan &#x28;&#x2b;93&#x29;
+							</option>
+							<option value = 'Albania&#x20;&#x28;&#x2b;355&#x29;'>
+								Albania &#x28;&#x2b;355&#x29;
+							</option>
+							<option value = 'Algeria&#x20;&#x28;&#x2b;213&#x29;'>
+								Algeria &#x28;&#x2b;213&#x29;
+							</option>
+							<option value = 'Andorra&#x20;&#x28;&#x2b;376&#x29;'>
+								Andorra &#x28;&#x2b;376&#x29;
+							</option>
+							<option value = 'Angola&#x20;&#x28;&#x2b;244&#x29;'>
+								Angola &#x28;&#x2b;244&#x29;
+							</option>
+							<option value = 'Argentina&#x20;&#x28;&#x2b;54&#x29;'>
+								Argentina &#x28;&#x2b;54&#x29;
+							</option>
+							<option value = 'Armenia&#x20;&#x28;&#x2b;374&#x29;'>
+								Armenia &#x28;&#x2b;374&#x29;
+							</option>
+							<option value = 'Australia&#x20;&#x28;&#x2b;61&#x29;'>
+								Australia &#x28;&#x2b;61&#x29;
+							</option>
+							<option value = 'Austria&#x20;&#x28;&#x2b;43&#x29;'>
+								Austria &#x28;&#x2b;43&#x29;
+							</option>
+							<option value = 'Azerbaijan&#x20;&#x28;&#x2b;994&#x29;'>
+								Azerbaijan &#x28;&#x2b;994&#x29;
+							</option>
+							<option value = 'Bahrain&#x20;&#x28;&#x2b;973&#x29;'>
+								Bahrain &#x28;&#x2b;973&#x29;
+							</option>
+							<option value = 'Bangladesh&#x20;&#x28;&#x2b;880&#x29;'>
+								Bangladesh &#x28;&#x2b;880&#x29;
+							</option>
+							<option value = 'Belarus&#x20;&#x28;&#x2b;375&#x29;'>
+								Belarus &#x28;&#x2b;375&#x29;
+							</option>
+							<option value = 'Belgium&#x20;&#x28;&#x2b;32&#x29;'>
+								Belgium &#x28;&#x2b;32&#x29;
+							</option>
+							<option value = 'Belize&#x20;&#x28;&#x2b;501&#x29;'>
+								Belize &#x28;&#x2b;501&#x29;
+							</option>
+							<option value = 'Benin&#x20;&#x28;&#x2b;229&#x29;'>
+								Benin &#x28;&#x2b;229&#x29;
+							</option>
+							<option value = 'Bhutan&#x20;&#x28;&#x2b;975&#x29;'>
+								Bhutan &#x28;&#x2b;975&#x29;
+							</option>
+							<option value = 'Bolivia&#x20;&#x28;&#x2b;591&#x29;'>
+								Bolivia &#x28;&#x2b;591&#x29;
+							</option>
+							<option value = 'Bosnia&#x20;and&#x20;Herzegovina&#x20;&#x28;&#x2b;387&#x29;'>
+								Bosnia and Herzegovina &#x28;&#x2b;387&#x29;
+							</option>
+							<option value = 'Botswana&#x20;&#x28;&#x2b;267&#x29;'>
+								Botswana &#x28;&#x2b;267&#x29;
+							</option>
+							<option value = 'Brazil&#x20;&#x28;&#x2b;55&#x29;'>
+								Brazil &#x28;&#x2b;55&#x29;
+							</option>
+							<option value = 'Brunei&#x20;&#x28;&#x2b;673&#x29;'>
+								Brunei &#x28;&#x2b;673&#x29;
+							</option>
+							<option value = 'Bulgaria&#x20;&#x28;&#x2b;359&#x29;'>
+								Bulgaria &#x28;&#x2b;359&#x29;
+							</option>
+							<option value = 'Burkina&#x20;Faso&#x20;&#x28;&#x2b;226&#x29;'>
+								Burkina Faso &#x28;&#x2b;226&#x29;
+							</option>
+							<option value = 'Burundi&#x20;&#x28;&#x2b;257&#x29;'>
+								Burundi &#x28;&#x2b;257&#x29;
+							</option>
+							<option value = 'Cambodia&#x20;&#x28;&#x2b;855&#x29;'>
+								Cambodia &#x28;&#x2b;855&#x29;
+							</option>
+							<option value = 'Cameroon&#x20;&#x28;&#x2b;237&#x29;'>
+								Cameroon &#x28;&#x2b;237&#x29;
+							</option>
+							<option value = 'Canada&#x20;&#x28;&#x2b;1&#x29;'>
+								Canada &#x28;&#x2b;1&#x29;
+							</option>
+							<option value = 'Cape&#x20;Verde&#x20;&#x28;&#x2b;238&#x29;'>
+								Cape Verde &#x28;&#x2b;238&#x29;
+							</option>
+							<option value = 'Central&#x20;African&#x20;Republic&#x20;&#x28;&#x2b;236&#x29;'>
+								Central African Republic &#x28;&#x2b;236&#x29;
+							</option>
+							<option value = 'Chad&#x20;&#x28;&#x2b;235&#x29;'>
+								Chad &#x28;&#x2b;235&#x29;
+							</option>
+							<option value = 'Chile&#x20;&#x28;&#x2b;56&#x29;'>
+								Chile &#x28;&#x2b;56&#x29;
+							</option>
+							<option value = 'China&#x20;&#x28;&#x2b;86&#x29;'>
+								China &#x28;&#x2b;86&#x29;
+							</option>
+							<option value = 'Colombia&#x20;&#x28;&#x2b;57&#x29;'>
+								Colombia &#x28;&#x2b;57&#x29;
+							</option>
+							<option value = 'Comoros&#x20;&#x28;&#x2b;269&#x29;'>
+								Comoros &#x28;&#x2b;269&#x29;
+							</option>
+							<option value = 'Congo&#x20;-&#x20;Brazzaville&#x20;&#x28;&#x2b;242&#x29;'>
+								Congo - Brazzaville &#x28;&#x2b;242&#x29;
+							</option>
+							<option value = 'Congo&#x20;-&#x20;Kinshasa&#x20;&#x28;&#x2b;243&#x29;'>
+								Congo - Kinshasa &#x28;&#x2b;243&#x29;
+							</option>
+							<option value = 'Costa&#x20;Rica&#x20;&#x28;&#x2b;506&#x29;'>
+								Costa Rica &#x28;&#x2b;506&#x29;
+							</option>
+							<option value = 'Croatia&#x20;&#x28;&#x2b;385&#x29;'>
+								Croatia &#x28;&#x2b;385&#x29;
+							</option>
+							<option value = 'Cuba&#x20;&#x28;&#x2b;53&#x29;'>
+								Cuba &#x28;&#x2b;53&#x29;
+							</option>
+							<option value = 'Cyprus&#x20;&#x28;&#x2b;357&#x29;'>
+								Cyprus &#x28;&#x2b;357&#x29;
+							</option>
+							<option value = 'Czech&#x20;Republic&#x20;&#x28;&#x2b;420&#x29;'>
+								Czech Republic &#x28;&#x2b;420&#x29;
+							</option>
+							<option value = 'Denmark&#x20;&#x28;&#x2b;45&#x29;'>
+								Denmark &#x28;&#x2b;45&#x29;
+							</option>
+							<option value = 'Djibouti&#x20;&#x28;&#x2b;253&#x29;'>
+								Djibouti &#x28;&#x2b;253&#x29;
+							</option>
+							<option value = 'Dominica&#x20;&#x28;&#x2b;1-767&#x29;'>
+								Dominica &#x28;&#x2b;1-767&#x29;
+							</option>
+							<option value = 'Dominican&#x20;Republic&#x20;&#x28;&#x2b;1-809&#x20;&#x2f;&#x20;&#x2b;1-829&#x20;&#x2f;&#x20;&#x2b;1-849&#x29;'>
+								Dominican Republic &#x28;&#x2b;1-809 &#x2f;&#x2b;1-829 &#x2f;&#x2b;1-849&#x29;
+							</option>
+							<option value = 'Ecuador&#x20;&#x28;&#x2b;593&#x29;'>
+								Ecuador &#x28;&#x2b;593&#x29;
+							</option>
+							<option value = 'Egypt&#x20;&#x28;&#x2b;20&#x29;'>
+								Egypt &#x28;&#x2b;20&#x29;
+							</option>
+							<option value = 'El&#x20;Salvador&#x20;&#x28;&#x2b;503&#x29;'>
+								El Salvador &#x28;&#x2b;503&#x29;
+							</option>
+							<option value = 'Equatorial&#x20;Guinea&#x20;&#x28;&#x2b;240&#x29;'>
+								Equatorial Guinea &#x28;&#x2b;240&#x29;
+							</option>
+							<option value = 'Eritrea&#x20;&#x28;&#x2b;291&#x29;'>
+								Eritrea &#x28;&#x2b;291&#x29;
+							</option>
+							<option value = 'Estonia&#x20;&#x28;&#x2b;372&#x29;'>
+								Estonia &#x28;&#x2b;372&#x29;
+							</option>
+							<option value = 'Eswatini&#x20;&#x28;&#x2b;268&#x29;'>
+								Eswatini &#x28;&#x2b;268&#x29;
+							</option>
+							<option value = 'Ethiopia&#x20;&#x28;&#x2b;251&#x29;'>
+								Ethiopia &#x28;&#x2b;251&#x29;
+							</option>
+							<option value = 'Fiji&#x20;&#x28;&#x2b;679&#x29;'>
+								Fiji &#x28;&#x2b;679&#x29;
+							</option>
+							<option value = 'Finland&#x20;&#x28;&#x2b;358&#x29;'>
+								Finland &#x28;&#x2b;358&#x29;
+							</option>
+							<option value = 'France&#x20;&#x28;&#x2b;33&#x29;'>
+								France &#x28;&#x2b;33&#x29;
+							</option>
+							<option value = 'Gabon&#x20;&#x28;&#x2b;241&#x29;'>
+								Gabon &#x28;&#x2b;241&#x29;
+							</option>
+							<option value = 'Gambia&#x20;&#x28;&#x2b;220&#x29;'>
+								Gambia &#x28;&#x2b;220&#x29;
+							</option>
+							<option value = 'Georgia&#x20;&#x28;&#x2b;995&#x29;'>
+								Georgia &#x28;&#x2b;995&#x29;
+							</option>
+							<option value = 'Germany&#x20;&#x28;&#x2b;49&#x29;'>
+								Germany &#x28;&#x2b;49&#x29;
+							</option>
+							<option value = 'Ghana&#x20;&#x28;&#x2b;233&#x29;'>
+								Ghana &#x28;&#x2b;233&#x29;
+							</option>
+							<option value = 'Greece&#x20;&#x28;&#x2b;30&#x29;'>
+								Greece &#x28;&#x2b;30&#x29;
+							</option>
+							<option value = 'Grenada&#x20;&#x28;&#x2b;1-473&#x29;'>
+								Grenada &#x28;&#x2b;1-473&#x29;
+							</option>
+							<option value = 'Guatemala&#x20;&#x28;&#x2b;502&#x29;'>
+								Guatemala &#x28;&#x2b;502&#x29;
+							</option>
+							<option value = 'Guinea&#x20;&#x28;&#x2b;224&#x29;'>
+								Guinea &#x28;&#x2b;224&#x29;
+							</option>
+							<option value = 'Guinea-Bissau&#x20;&#x28;&#x2b;245&#x29;'>
+								Guinea-Bissau &#x28;&#x2b;245&#x29;
+							</option>
+							<option value = 'Guyana&#x20;&#x28;&#x2b;592&#x29;'>
+								Guyana &#x28;&#x2b;592&#x29;
+							</option>
+							<option value = 'Haiti&#x20;&#x28;&#x2b;509&#x29;'>
+								Haiti &#x28;&#x2b;509&#x29;
+							</option>
+							<option value = 'Honduras&#x20;&#x28;&#x2b;504&#x29;'>
+								Honduras &#x28;&#x2b;504&#x29;
+							</option>
+							<option value = 'Hungary&#x20;&#x28;&#x2b;36&#x29;'>
+								Hungary &#x28;&#x2b;36&#x29;
+							</option>
+							<option value = 'Iceland&#x20;&#x28;&#x2b;354&#x29;'>
+								Iceland &#x28;&#x2b;354&#x29;
+							</option>
+							<option selected value= 'India&#x20;&#x28;&#x2b;91&#x29;'>
+								India &#x28;&#x2b;91&#x29;
+							</option>
+							<option value = 'Indonesia&#x20;&#x28;&#x2b;62&#x29;'>
+								Indonesia &#x28;&#x2b;62&#x29;
+							</option>
+							<option value = 'Iran&#x20;&#x28;&#x2b;98&#x29;'>
+								Iran &#x28;&#x2b;98&#x29;
+							</option>
+							<option value = 'Iraq&#x20;&#x28;&#x2b;964&#x29;'>
+								Iraq &#x28;&#x2b;964&#x29;
+							</option>
+							<option value = 'Ireland&#x20;&#x28;&#x2b;353&#x29;'>
+								Ireland &#x28;&#x2b;353&#x29;
+							</option>
+							<option value = 'Israel&#x20;&#x28;&#x2b;972&#x29;'>
+								Israel &#x28;&#x2b;972&#x29;
+							</option>
+							<option value = 'Italy&#x20;&#x28;&#x2b;39&#x29;'>
+								Italy &#x28;&#x2b;39&#x29;
+							</option>
+							<option value = 'Jamaica&#x20;&#x28;&#x2b;1-876&#x29;'>
+								Jamaica &#x28;&#x2b;1-876&#x29;
+							</option>
+							<option value = 'Japan&#x20;&#x28;&#x2b;81&#x29;'>
+								Japan &#x28;&#x2b;81&#x29;
+							</option>
+							<option value = 'Jordan&#x20;&#x28;&#x2b;962&#x29;'>
+								Jordan &#x28;&#x2b;962&#x29;
+							</option>
+							<option value = 'Kazakhstan&#x20;&#x28;&#x2b;7&#x29;'>
+								Kazakhstan &#x28;&#x2b;7&#x29;
+							</option>
+							<option value = 'Kenya&#x20;&#x28;&#x2b;254&#x29;'>
+								Kenya &#x28;&#x2b;254&#x29;
+							</option>
+							<option value = 'Kiribati&#x20;&#x28;&#x2b;686&#x29;'>
+								Kiribati &#x28;&#x2b;686&#x29;
+							</option>
+							<option value = 'Korea,&#x20;North&#x20;&#x28;&#x2b;850&#x29;'>
+								Korea, North &#x28;&#x2b;850&#x29;
+							</option>
+							<option value = 'Korea,&#x20;South&#x20;&#x28;&#x2b;82&#x29;'>
+								Korea, South &#x28;&#x2b;82&#x29;
+							</option>
+							<option value = 'Kosovo&#x20;&#x28;&#x2b;383&#x29;'>
+								Kosovo &#x28;&#x2b;383&#x29;
+							</option>
+							<option value = 'Kuwait&#x20;&#x28;&#x2b;965&#x29;'>
+								Kuwait &#x28;&#x2b;965&#x29;
+							</option>
+							<option value = 'Kyrgyzstan&#x20;&#x28;&#x2b;996&#x29;'>
+								Kyrgyzstan &#x28;&#x2b;996&#x29;
+							</option>
+							<option value = 'Laos&#x20;&#x28;&#x2b;856&#x29;'>
+								Laos &#x28;&#x2b;856&#x29;
+							</option>
+							<option value = 'Latvia&#x20;&#x28;&#x2b;371&#x29;'>
+								Latvia &#x28;&#x2b;371&#x29;
+							</option>
+							<option value = 'Lebanon&#x20;&#x28;&#x2b;961&#x29;'>
+								Lebanon &#x28;&#x2b;961&#x29;
+							</option>
+							<option value = 'Lesotho&#x20;&#x28;&#x2b;266&#x29;'>
+								Lesotho &#x28;&#x2b;266&#x29;
+							</option>
+							<option value = 'Liberia&#x20;&#x28;&#x2b;231&#x29;'>
+								Liberia &#x28;&#x2b;231&#x29;
+							</option>
+							<option value = 'Libya&#x20;&#x28;&#x2b;218&#x29;'>
+								Libya &#x28;&#x2b;218&#x29;
+							</option>
+							<option value = 'Liechtenstein&#x20;&#x28;&#x2b;423&#x29;'>
+								Liechtenstein &#x28;&#x2b;423&#x29;
+							</option>
+							<option value = 'Lithuania&#x20;&#x28;&#x2b;370&#x29;'>
+								Lithuania &#x28;&#x2b;370&#x29;
+							</option>
+							<option value = 'Luxembourg&#x20;&#x28;&#x2b;352&#x29;'>
+								Luxembourg &#x28;&#x2b;352&#x29;
+							</option>
+							<option value = 'Madagascar&#x20;&#x28;&#x2b;261&#x29;'>
+								Madagascar &#x28;&#x2b;261&#x29;
+							</option>
+							<option value = 'Malawi&#x20;&#x28;&#x2b;265&#x29;'>
+								Malawi &#x28;&#x2b;265&#x29;
+							</option>
+							<option value = 'Malaysia&#x20;&#x28;&#x2b;60&#x29;'>
+								Malaysia &#x28;&#x2b;60&#x29;
+							</option>
+							<option value = 'Maldives&#x20;&#x28;&#x2b;960&#x29;'>
+								Maldives &#x28;&#x2b;960&#x29;
+							</option>
+							<option value = 'Mali&#x20;&#x28;&#x2b;223&#x29;'>
+								Mali &#x28;&#x2b;223&#x29;
+							</option>
+							<option value = 'Malta&#x20;&#x28;&#x2b;356&#x29;'>
+								Malta &#x28;&#x2b;356&#x29;
+							</option>
+							<option value = 'Marshall&#x20;Islands&#x20;&#x28;&#x2b;692&#x29;'>
+								Marshall Islands &#x28;&#x2b;692&#x29;
+							</option>
+							<option value = 'Mauritania&#x20;&#x28;&#x2b;222&#x29;'>
+								Mauritania &#x28;&#x2b;222&#x29;
+							</option>
+							<option value = 'Mauritius&#x20;&#x28;&#x2b;230&#x29;'>
+								Mauritius &#x28;&#x2b;230&#x29;
+							</option>
+							<option value = 'Mexico&#x20;&#x28;&#x2b;52&#x29;'>
+								Mexico &#x28;&#x2b;52&#x29;
+							</option>
+							<option value = 'Micronesia&#x20;&#x28;&#x2b;691&#x29;'>
+								Micronesia &#x28;&#x2b;691&#x29;
+							</option>
+							<option value = 'Moldova&#x20;&#x28;&#x2b;373&#x29;'>
+								Moldova &#x28;&#x2b;373&#x29;
+							</option>
+							<option value = 'Monaco&#x20;&#x28;&#x2b;377&#x29;'>
+								Monaco &#x28;&#x2b;377&#x29;
+							</option>
+							<option value = 'Mongolia&#x20;&#x28;&#x2b;976&#x29;'>
+								Mongolia &#x28;&#x2b;976&#x29;
+							</option>
+							<option value = 'Montenegro&#x20;&#x28;&#x2b;382&#x29;'>
+								Montenegro &#x28;&#x2b;382&#x29;
+							</option>
+							<option value = 'Morocco&#x20;&#x28;&#x2b;212&#x29;'>
+								Morocco &#x28;&#x2b;212&#x29;
+							</option>
+							<option value = 'Mozambique&#x20;&#x28;&#x2b;258&#x29;'>
+								Mozambique &#x28;&#x2b;258&#x29;
+							</option>
+							<option value = 'Myanmar&#x20;&#x28;&#x2b;95&#x29;'>
+								Myanmar &#x28;&#x2b;95&#x29;
+							</option>
+							<option value = 'Namibia&#x20;&#x28;&#x2b;264&#x29;'>
+								Namibia &#x28;&#x2b;264&#x29;
+							</option>
+							<option value = 'Nauru&#x20;&#x28;&#x2b;674&#x29;'>
+								Nauru &#x28;&#x2b;674&#x29;
+							</option>
+							<option value = 'Nepal&#x20;&#x28;&#x2b;977&#x29;'>
+								Nepal &#x28;&#x2b;977&#x29;
+							</option>
+							<option value = 'Netherlands&#x20;&#x28;&#x2b;31&#x29;'>
+								Netherlands &#x28;&#x2b;31&#x29;
+							</option>
+							<option value = 'New&#x20;Zealand&#x20;&#x28;&#x2b;64&#x29;'>
+								New Zealand &#x28;&#x2b;64&#x29;
+							</option>
+							<option value = 'Nicaragua&#x20;&#x28;&#x2b;505&#x29;'>
+								Nicaragua &#x28;&#x2b;505&#x29;
+							</option>
+							<option value = 'Niger&#x20;&#x28;&#x2b;227&#x29;'>
+								Niger &#x28;&#x2b;227&#x29;
+							</option>
+							<option value = 'Nigeria&#x20;&#x28;&#x2b;234&#x29;'>
+								Nigeria &#x28;&#x2b;234&#x29;
+							</option>
+							<option value = 'North&#x20;Macedonia&#x20;&#x28;&#x2b;389&#x29;'>
+								North Macedonia &#x28;&#x2b;389&#x29;
+							</option>
+							<option value = 'Norway&#x20;&#x28;&#x2b;47&#x29;'>
+								Norway &#x28;&#x2b;47&#x29;
+							</option>
+							<option value = 'Oman&#x20;&#x28;&#x2b;968&#x29;'>
+								Oman &#x28;&#x2b;968&#x29;
+							</option>
+							<option value = 'Pakistan&#x20;&#x28;&#x2b;92&#x29;'>
+								Pakistan &#x28;&#x2b;92&#x29;
+							</option>
+							<option value = 'Palau&#x20;&#x28;&#x2b;680&#x29;'>
+								Palau &#x28;&#x2b;680&#x29;
+							</option>
+							<option value = 'Panama&#x20;&#x28;&#x2b;507&#x29;'>
+								Panama &#x28;&#x2b;507&#x29;
+							</option>
+							<option value = 'Papua&#x20;New&#x20;Guinea&#x20;&#x28;&#x2b;675&#x29;'>
+								Papua New Guinea &#x28;&#x2b;675&#x29;
+							</option>
+							<option value = 'Paraguay&#x20;&#x28;&#x2b;595&#x29;'>
+								Paraguay &#x28;&#x2b;595&#x29;
+							</option>
+							<option value = 'Peru&#x20;&#x28;&#x2b;51&#x29;'>
+								Peru &#x28;&#x2b;51&#x29;
+							</option>
+							<option value = 'Philippines&#x20;&#x28;&#x2b;63&#x29;'>
+								Philippines &#x28;&#x2b;63&#x29;
+							</option>
+							<option value = 'Poland&#x20;&#x28;&#x2b;48&#x29;'>
+								Poland &#x28;&#x2b;48&#x29;
+							</option>
+							<option value = 'Portugal&#x20;&#x28;&#x2b;351&#x29;'>
+								Portugal &#x28;&#x2b;351&#x29;
+							</option>
+							<option value = 'Qatar&#x20;&#x28;&#x2b;974&#x29;'>
+								Qatar &#x28;&#x2b;974&#x29;
+							</option>
+							<option value = 'Romania&#x20;&#x28;&#x2b;40&#x29;'>
+								Romania &#x28;&#x2b;40&#x29;
+							</option>
+							<option value = 'Russia&#x20;&#x28;&#x2b;7&#x29;'>
+								Russia &#x28;&#x2b;7&#x29;
+							</option>
+							<option value = 'Rwanda&#x20;&#x28;&#x2b;250&#x29;'>
+								Rwanda &#x28;&#x2b;250&#x29;
+							</option>
+							<option value = 'Saint&#x20;Kitts&#x20;and&#x20;Nevis&#x20;&#x28;&#x2b;1-869&#x29;'>
+								Saint Kitts and Nevis &#x28;&#x2b;1-869&#x29;
+							</option>
+							<option value = 'Saint&#x20;Lucia&#x20;&#x28;&#x2b;1-758&#x29;'>
+								Saint Lucia &#x28;&#x2b;1-758&#x29;
+							</option>
+							<option value = 'Saint&#x20;Vincent&#x20;and&#x20;the&#x20;Grenadines&#x20;&#x28;&#x2b;1-784&#x29;'>
+								Saint Vincent and the Grenadines &#x28;&#x2b;1-784&#x29;
+							</option>
+							<option value = 'Samoa&#x20;&#x28;&#x2b;685&#x29;'>
+								Samoa &#x28;&#x2b;685&#x29;
+							</option>
+							<option value = 'San&#x20;Marino&#x20;&#x28;&#x2b;378&#x29;'>
+								San Marino &#x28;&#x2b;378&#x29;
+							</option>
+							<option value = 'Sao&#x20;Tome&#x20;and&#x20;Principe&#x20;&#x28;&#x2b;239&#x29;'>
+								Sao Tome and Principe &#x28;&#x2b;239&#x29;
+							</option>
+							<option value = 'Saudi&#x20;Arabia&#x20;&#x28;&#x2b;966&#x29;'>
+								Saudi Arabia &#x28;&#x2b;966&#x29;
+							</option>
+							<option value = 'Senegal&#x20;&#x28;&#x2b;221&#x29;'>
+								Senegal &#x28;&#x2b;221&#x29;
+							</option>
+							<option value = 'Serbia&#x20;&#x28;&#x2b;381&#x29;'>
+								Serbia &#x28;&#x2b;381&#x29;
+							</option>
+							<option value = 'Seychelles&#x20;&#x28;&#x2b;248&#x29;'>
+								Seychelles &#x28;&#x2b;248&#x29;
+							</option>
+							<option value = 'Sierra&#x20;Leone&#x20;&#x28;&#x2b;232&#x29;'>
+								Sierra Leone &#x28;&#x2b;232&#x29;
+							</option>
+							<option value = 'Singapore&#x20;&#x28;&#x2b;65&#x29;'>
+								Singapore &#x28;&#x2b;65&#x29;
+							</option>
+							<option value = 'Slovakia&#x20;&#x28;&#x2b;421&#x29;'>
+								Slovakia &#x28;&#x2b;421&#x29;
+							</option>
+							<option value = 'Slovenia&#x20;&#x28;&#x2b;386&#x29;'>
+								Slovenia &#x28;&#x2b;386&#x29;
+							</option>
+							<option value = 'Solomon&#x20;Islands&#x20;&#x28;&#x2b;677&#x29;'>
+								Solomon Islands &#x28;&#x2b;677&#x29;
+							</option>
+							<option value = 'Somalia&#x20;&#x28;&#x2b;252&#x29;'>
+								Somalia &#x28;&#x2b;252&#x29;
+							</option>
+							<option value = 'South&#x20;Africa&#x20;&#x28;&#x2b;27&#x29;'>
+								South Africa &#x28;&#x2b;27&#x29;
+							</option>
+							<option value = 'South&#x20;Korea&#x20;&#x28;&#x2b;82&#x29;'>
+								South Korea &#x28;&#x2b;82&#x29;
+							</option>
+							<option value = 'South&#x20;Sudan&#x20;&#x28;&#x2b;211&#x29;'>
+								South Sudan &#x28;&#x2b;211&#x29;
+							</option>
+							<option value = 'Spain&#x20;&#x28;&#x2b;34&#x29;'>
+								Spain &#x28;&#x2b;34&#x29;
+							</option>
+							<option value = 'Sri&#x20;Lanka&#x20;&#x28;&#x2b;94&#x29;'>
+								Sri Lanka &#x28;&#x2b;94&#x29;
+							</option>
+							<option value = 'Sudan&#x20;&#x28;&#x2b;249&#x29;'>
+								Sudan &#x28;&#x2b;249&#x29;
+							</option>
+							<option value = 'Suriname&#x20;&#x28;&#x2b;597&#x29;'>
+								Suriname &#x28;&#x2b;597&#x29;
+							</option>
+							<option value = 'Sweden&#x20;&#x28;&#x2b;46&#x29;'>
+								Sweden &#x28;&#x2b;46&#x29;
+							</option>
+							<option value = 'Switzerland&#x20;&#x28;&#x2b;41&#x29;'>
+								Switzerland &#x28;&#x2b;41&#x29;
+							</option>
+							<option value = 'Syria&#x20;&#x28;&#x2b;963&#x29;'>
+								Syria &#x28;&#x2b;963&#x29;
+							</option>
+							<option value = 'Taiwan&#x20;&#x28;&#x2b;886&#x29;'>
+								Taiwan &#x28;&#x2b;886&#x29;
+							</option>
+							<option value = 'Tajikistan&#x20;&#x28;&#x2b;992&#x29;'>
+								Tajikistan &#x28;&#x2b;992&#x29;
+							</option>
+							<option value = 'Tanzania&#x20;&#x28;&#x2b;255&#x29;'>
+								Tanzania &#x28;&#x2b;255&#x29;
+							</option>
+							<option value = 'Thailand&#x20;&#x28;&#x2b;66&#x29;'>
+								Thailand &#x28;&#x2b;66&#x29;
+							</option>
+							<option value = 'Timor-Leste&#x20;&#x28;&#x2b;670&#x29;'>
+								Timor-Leste &#x28;&#x2b;670&#x29;
+							</option>
+							<option value = 'Togo&#x20;&#x28;&#x2b;228&#x29;'>
+								Togo &#x28;&#x2b;228&#x29;
+							</option>
+							<option value = 'Tonga&#x20;&#x28;&#x2b;676&#x29;'>
+								Tonga &#x28;&#x2b;676&#x29;
+							</option>
+							<option value = 'Trinidad&#x20;and&#x20;Tobago&#x20;&#x28;&#x2b;1-868&#x29;'>
+								Trinidad and Tobago &#x28;&#x2b;1-868&#x29;
+							</option>
+							<option value = 'Tunisia&#x20;&#x28;&#x2b;216&#x29;'>
+								Tunisia &#x28;&#x2b;216&#x29;
+							</option>
+							<option value = 'Turkey&#x20;&#x28;&#x2b;90&#x29;'>
+								Turkey &#x28;&#x2b;90&#x29;
+							</option>
+							<option value = 'Turkmenistan&#x20;&#x28;&#x2b;993&#x29;'>
+								Turkmenistan &#x28;&#x2b;993&#x29;
+							</option>
+							<option value = 'Tuvalu&#x20;&#x28;&#x2b;688&#x29;'>
+								Tuvalu &#x28;&#x2b;688&#x29;
+							</option>
+							<option value = 'Uganda&#x20;&#x28;&#x2b;256&#x29;'>
+								Uganda &#x28;&#x2b;256&#x29;
+							</option>
+							<option value = 'Ukraine&#x20;&#x28;&#x2b;380&#x29;'>
+								Ukraine &#x28;&#x2b;380&#x29;
+							</option>
+							<option value = 'United&#x20;Arab&#x20;Emirates&#x20;&#x28;&#x2b;971&#x29;'>
+								United Arab Emirates &#x28;&#x2b;971&#x29;
+							</option>
+							<option value = 'United&#x20;Kingdom&#x20;&#x28;&#x2b;44&#x29;'>
+								United Kingdom &#x28;&#x2b;44&#x29;
+							</option>
+							<option value = 'United&#x20;States&#x20;&#x28;&#x2b;1&#x29;'>
+								United States &#x28;&#x2b;1&#x29;
+							</option>
+							<option value = 'Uruguay&#x20;&#x28;&#x2b;598&#x29;'>
+								Uruguay &#x28;&#x2b;598&#x29;
+							</option>
+							<option value = 'Uzbekistan&#x20;&#x28;&#x2b;998&#x29;'>
+								Uzbekistan &#x28;&#x2b;998&#x29;
+							</option>
+							<option value = 'Vanuatu&#x20;&#x28;&#x2b;678&#x29;'>
+								Vanuatu &#x28;&#x2b;678&#x29;
+							</option>
+							<option value = 'Vatican&#x20;City&#x20;&#x28;&#x2b;379&#x29;'>
+								Vatican City &#x28;&#x2b;379&#x29;
+							</option>
+							<option value = 'Venezuela&#x20;&#x28;&#x2b;58&#x29;'>
+								Venezuela &#x28;&#x2b;58&#x29;
+							</option>
+							<option value = 'Vietnam&#x20;&#x28;&#x2b;84&#x29;'>
+								Vietnam &#x28;&#x2b;84&#x29;
+							</option>
+							<option value = 'Yemen&#x20;&#x28;&#x2b;967&#x29;'>
+								Yemen &#x28;&#x2b;967&#x29;
+							</option>
+							<option value = 'Zambia&#x20;&#x28;&#x2b;260&#x29;'>
+								Zambia &#x28;&#x2b;260&#x29;
+							</option>
+							<option value = 'Zimbabwe&#x20;&#x28;&#x2b;263&#x29;'>
+								Zimbabwe &#x28;&#x2b;263&#x29;
+							</option>
+						</select>
+						<input type = 'text' id = 'Mobile' aria-required = 'true' aria-label = 'Mobile' name = 'Mobile' aria-valuemax = '30' maxlength = '30' style="width: 450px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+					
+				</div>
+				
+					<!-- Company Field -->
+<div class="zcwf_row" id="companyField">
+  <div class="zcwf_col_lab" style="font-size:15px; font-family: Arial; display: block;">
+    <label for="Company" style="color:black;">Company
+    	<span style = 'color:red;'>	*</span></label>
+  </div>
+  <div class="zcwf_col_fld" style="display: block;">
+    <input type="text" id="Company" name="Company" maxlength="200" style="width: 100%;" />
+    <div class="zcwf_col_help"></div>
+  </div>
+</div>
+
+
+        <div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF36' style="color:black;">
+							Let us know more about you
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF36' onChange = 'addAriaSelected894911000000429795()' aria-required = 'false' aria-label = 'LEADCF36' name = 'LEADCF36'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Interested&#x20;in&#x20;buying&#x20;our&#x20;product'>
+								Interested in buying our product
+							</option>
+							<option value = 'Investor'>
+								Investor
+							</option>
+							<option value = 'Media&#x2f;PR'>
+								Media&#x2f;PR
+							</option>
+							<option value = 'Other'>
+								Other
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF37' style="color:black;">
+							Please Specify<span style = 'color:red;'>	*</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF37' aria-required = 'false' aria-label = 'LEADCF37' name = 'LEADCF37' aria-valuemax = '255' maxlength = '255'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+
+
+<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'LEADCF18'style="font-size: 15px; color:black;">
+							Choose the option that best describes you
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF18' onChange = 'addAriaSelected894911000000429795()' aria-required = 'false' aria-label = 'LEADCF18' name = 'LEADCF18'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Agent'>
+								Agent&#x2f;Broker
+							</option>
+							<option value = 'Buying&#x20;house'>
+								Buying house
+							</option>
+							<option value = 'Dealer'>
+								Distributor&#x2f;Dealer
+							</option>
+							<!--<option value = 'Machine&#x20;manufacturer'>-->
+							<!--	Machine manufacturer-->
+							<!--</option>-->
+							<option value = 'Manufacturer'>
+								Manufacturer
+							</option>
+							<!--<option value = 'Manufacturer&#x20;outsourced&#x20;only'>-->
+							<!--	Manufacturer outsourced only-->
+							<!--</option>-->
+							<!--<option value = 'Only&#x20;job&#x20;worker'>-->
+							<!--	Only job worker-->
+							<!--</option>-->
+							<!--<option value = 'Product&#x20;development&#x20;house'>-->
+							<!--	Product development house-->
+							<!--</option>-->
+							<option value = 'Service&#x20;provider'>
+								Service provider
+							</option>
+							<option value = 'Trader'>
+								Trader
+							</option>
+							<option value = 'Other'>
+								Other
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'LEADCF152'style="color:black; font-size:15px;">
+							Please Specify<span style = 'color:red;'>	*</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF152' aria-required = 'false' aria-label = 'LEADCF152' name = 'LEADCF152' aria-valuemax = '255' maxlength = '255'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				
+				
+				
+						<div class="zcwf_row">
+  <div class="zcwf_col_lab" style="font-size:12px; font-family: Arial;">
+    <label for="LEADCF10" style="font-size: 15px;  color:black;">
+      Inquiry Type
+      <span style="color:red; ">*</span>
+    </label>
+  </div>
+  <div class="zcwf_col_fld" style="display: flex; gap: 15px; align-items: center;">
+    <label style="font-family: Arial; font-size: 13px;">
+      <input type="radio" id="LEADCF10_domestic" name="LEADCF10" value="Domestic" required>
+      Within India &nbsp;&nbsp;&nbsp;
+    </label>
+    <label style="font-family: Arial; font-size: 13px;">
+      <input type="radio" id="LEADCF10_export" name="LEADCF10" value="Export" required>
+      Outside India
+    </label>
+    <div class="zcwf_col_help"></div>
+  </div>
+</div>
+
+
+	<div class="zcwf_row">
+  <div class="zcwf_row">
+  <div class="zcwf_col_lab" style="font-size:15px; font-style: Arial;">
+   <label for="LEADCF30" style="color:black; position: relative;">
+  Product Inquiry Type
+  <span class="multiselect-info-icon" data-tooltip="Choose all that apply">(ℹ)</span>
+</label>
+  </div>
+  <div class="zcwf_col_fld">
+    <div class="multiselect-wrapper" id="customLEADCF30">
+      <div class="multiselect-display">Select Product Types</div>
+      <div class="multiselect-options">
+        <div class="option" data-value="DTY">DTY</div>
+        <div class="option" data-value="FDY">FDY</div>
+        <div class="option" data-value="IDY">IDY</div>
+        <div class="option" data-value="ATY">ATY</div>
+        <div class="option" data-value="Cotton Yarn">Cotton Yarn</div>
+        <div class="option" data-value="Chips">Chips</div>
+        <div class="option" data-value="Waste">Waste</div>
+        <div class="option" data-value="Other">Other</div>
+      </div>
+    </div>
+
+    <!-- The original hidden multiselect -->
+    <select name="LEADCF30" id="LEADCF30" multiple>
+      <option value="DTY">DTY</option>
+      <option value="FDY">FDY</option>
+      <option value="IDY">IDY</option>
+      <option value="ATY">ATY</option>
+      <option value="Cotton Yarn">Cotton Yarn</option>
+      <option value="Chips">Chips</option>
+      <option value="Waste">Waste</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <div class="zcwf_col_help"></div>
+  </div>
+</div>
+
+
+		<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'LEADCF31'>
+							Other Product
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF31' aria-required = 'false' aria-label = 'LEADCF31' name = 'LEADCF31' aria-valuemax = '255' maxlength = '255'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				<div class = 'zcwf_row' id="landlinefield">
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF4' style="color:black;">
+							Landline No.
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF4' aria-required = 'false' aria-label = 'LEADCF4' name = 'LEADCF4' aria-valuemax = '30' maxlength = '30'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				
+				<div class = 'zcwf_row' id = "cityField">
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'City' style="color:black;">
+							City
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'City' aria-required = 'true' aria-label = 'City' name = 'City' aria-valuemax = '100' maxlength = '100'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row' id = "stateField">
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF14' style="color:black;">
+							State
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF14' onChange = 'addAriaSelected894911000000429795()' aria-required = 'true' aria-label = 'LEADCF14' name = 'LEADCF14'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Andhra&#x20;Pradesh'>
+								Andhra Pradesh
+							</option>
+							<option value = 'Arunachal&#x20;Pradesh'>
+								Arunachal Pradesh
+							</option>
+							<option value = 'Assam'>
+								Assam
+							</option>
+							<option value = 'Bihar'>
+								Bihar
+							</option>
+							<option value = 'Chhattisgarh'>
+								Chhattisgarh
+							</option>
+							<option value = 'Goa'>
+								Goa
+							</option>
+							<option value = 'Gujarat'>
+								Gujarat
+							</option>
+							<option value = 'Haryana'>
+								Haryana
+							</option>
+							<option value = 'Himachal&#x20;Pradesh'>
+								Himachal Pradesh
+							</option>
+							<option value = 'Jharkhand'>
+								Jharkhand
+							</option>
+							<option value = 'Karnataka'>
+								Karnataka
+							</option>
+							<option value = 'Kerala'>
+								Kerala
+							</option>
+							<option value = 'Madhya&#x20;Pradesh'>
+								Madhya Pradesh
+							</option>
+							<option value = 'Maharashtra'>
+								Maharashtra
+							</option>
+							<option value = 'Manipur'>
+								Manipur
+							</option>
+							<option value = 'Meghalaya'>
+								Meghalaya
+							</option>
+							<option value = 'Mizoram'>
+								Mizoram
+							</option>
+							<option value = 'Nagaland'>
+								Nagaland
+							</option>
+							<option value = 'Odisha'>
+								Odisha
+							</option>
+							<option value = 'Punjab'>
+								Punjab
+							</option>
+							<option value = 'Rajasthan'>
+								Rajasthan
+							</option>
+							<option value = 'Sikkim'>
+								Sikkim
+							</option>
+							<option value = 'Tamil&#x20;Nadu'>
+								Tamil Nadu
+							</option>
+							<option value = 'Telangana'>
+								Telangana
+							</option>
+							<option value = 'Tripura'>
+								Tripura
+							</option>
+							<option value = 'Uttar&#x20;Pradesh'>
+								Uttar Pradesh
+							</option>
+							<option value = 'Uttarakhand'>
+								Uttarakhand
+							</option>
+							<option value = 'West&#x20;Bengal'>
+								West Bengal
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF15' style="color:black;">
+							Country
+							<span style = 'color:red;'>
+								*
+							</span>
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF15' onChange = 'addAriaSelected894911000000429795()' aria-required = 'true' aria-label = 'LEADCF15' name = 'LEADCF15'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Afghanistan'>
+								Afghanistan
+							</option>
+							<option value = 'Albania'>
+								Albania
+							</option>
+							<option value = 'Algeria'>
+								Algeria
+							</option>
+							<option value = 'Andorra'>
+								Andorra
+							</option>
+							<option value = 'Angola'>
+								Angola
+							</option>
+							<option value = 'Antigua&#x20;and&#x20;Barbuda'>
+								Antigua and Barbuda
+							</option>
+							<option value = 'Argentina'>
+								Argentina
+							</option>
+							<option value = 'Armenia'>
+								Armenia
+							</option>
+							<option value = 'Australia'>
+								Australia
+							</option>
+							<option value = 'Austria'>
+								Austria
+							</option>
+							<option value = 'Azerbaijan'>
+								Azerbaijan
+							</option>
+							<option value = 'Bahamas'>
+								Bahamas
+							</option>
+							<option value = 'Bahrain'>
+								Bahrain
+							</option>
+							<option value = 'Bangladesh'>
+								Bangladesh
+							</option>
+							<option value = 'Barbados'>
+								Barbados
+							</option>
+							<option value = 'Belarus'>
+								Belarus
+							</option>
+							<option value = 'Belgium'>
+								Belgium
+							</option>
+							<option value = 'Belize'>
+								Belize
+							</option>
+							<option value = 'Benin'>
+								Benin
+							</option>
+							<option value = 'Bhutan'>
+								Bhutan
+							</option>
+							<option value = 'Bolivia'>
+								Bolivia
+							</option>
+							<option value = 'Bosnia&#x20;and&#x20;Herzegovina'>
+								Bosnia and Herzegovina
+							</option>
+							<option value = 'Botswana'>
+								Botswana
+							</option>
+							<option value = 'Brazil'>
+								Brazil
+							</option>
+							<option value = 'Brunei'>
+								Brunei
+							</option>
+							<option value = 'Bulgaria'>
+								Bulgaria
+							</option>
+							<option value = 'Burkina&#x20;Faso'>
+								Burkina Faso
+							</option>
+							<option value = 'Burundi'>
+								Burundi
+							</option>
+							<option value = 'Cambodia'>
+								Cambodia
+							</option>
+							<option value = 'Cameroon'>
+								Cameroon
+							</option>
+							<option value = 'Canada'>
+								Canada
+							</option>
+							<option value = 'Cape&#x20;Verde'>
+								Cape Verde
+							</option>
+							<option value = 'Central&#x20;African&#x20;Republic'>
+								Central African Republic
+							</option>
+							<option value = 'Chad'>
+								Chad
+							</option>
+							<option value = 'Chile'>
+								Chile
+							</option>
+							<option value = 'China'>
+								China
+							</option>
+							<option value = 'Colombia'>
+								Colombia
+							</option>
+							<option value = 'Comoros'>
+								Comoros
+							</option>
+							<option value = 'Congo&#x20;&#x28;Brazzaville&#x29;'>
+								Congo &#x28;Brazzaville&#x29;
+							</option>
+							<option value = 'Congo&#x20;&#x28;Kinshasa&#x29;'>
+								Congo &#x28;Kinshasa&#x29;
+							</option>
+							<option value = 'Costa&#x20;Rica'>
+								Costa Rica
+							</option>
+							<option value = 'Croatia'>
+								Croatia
+							</option>
+							<option value = 'Cuba'>
+								Cuba
+							</option>
+							<option value = 'Cyprus'>
+								Cyprus
+							</option>
+							<option value = 'Czech&#x20;Republic&#x20;&#x28;Czechia&#x29;'>
+								Czech Republic &#x28;Czechia&#x29;
+							</option>
+							<option value = 'Denmark'>
+								Denmark
+							</option>
+							<option value = 'Djibouti'>
+								Djibouti
+							</option>
+							<option value = 'Dominica'>
+								Dominica
+							</option>
+							<option value = 'Dominican&#x20;Republic'>
+								Dominican Republic
+							</option>
+							<option value = 'East&#x20;Timor&#x20;&#x28;Timor-Leste&#x29;'>
+								East Timor &#x28;Timor-Leste&#x29;
+							</option>
+							<option value = 'Ecuador'>
+								Ecuador
+							</option>
+							<option value = 'Egypt'>
+								Egypt
+							</option>
+							<option value = 'El&#x20;Salvador'>
+								El Salvador
+							</option>
+							<option value = 'Equatorial&#x20;Guinea'>
+								Equatorial Guinea
+							</option>
+							<option value = 'Eritrea'>
+								Eritrea
+							</option>
+							<option value = 'Estonia'>
+								Estonia
+							</option>
+							<option value = 'Eswatini'>
+								Eswatini
+							</option>
+							<option value = 'Ethiopia'>
+								Ethiopia
+							</option>
+							<option value = 'Fiji'>
+								Fiji
+							</option>
+							<option value = 'Finland'>
+								Finland
+							</option>
+							<option value = 'France'>
+								France
+							</option>
+							<option value = 'Gabon'>
+								Gabon
+							</option>
+							<option value = 'Gambia'>
+								Gambia
+							</option>
+							<option value = 'Georgia'>
+								Georgia
+							</option>
+							<option value = 'Germany'>
+								Germany
+							</option>
+							<option value = 'Ghana'>
+								Ghana
+							</option>
+							<option value = 'Greece'>
+								Greece
+							</option>
+							<option value = 'Grenada'>
+								Grenada
+							</option>
+							<option value = 'Guatemala'>
+								Guatemala
+							</option>
+							<option value = 'Guinea'>
+								Guinea
+							</option>
+							<option value = 'Guinea-Bissau'>
+								Guinea-Bissau
+							</option>
+							<option value = 'Guyana'>
+								Guyana
+							</option>
+							<option value = 'Haiti'>
+								Haiti
+							</option>
+							<option value = 'Honduras'>
+								Honduras
+							</option>
+							<option value = 'Hungary'>
+								Hungary
+							</option>
+							<option value = 'Iceland'>
+								Iceland
+							</option>
+							<option  value= 'India'>
+								India
+							</option>
+							<option value = 'Indonesia'>
+								Indonesia
+							</option>
+							<option value = 'Iran'>
+								Iran
+							</option>
+							<option value = 'Iraq'>
+								Iraq
+							</option>
+							<option value = 'Ireland'>
+								Ireland
+							</option>
+							<option value = 'Israel'>
+								Israel
+							</option>
+							<option value = 'Italy'>
+								Italy
+							</option>
+							<option value = 'Ivory&#x20;Coast'>
+								Ivory Coast
+							</option>
+							<option value = 'Jamaica'>
+								Jamaica
+							</option>
+							<option value = 'Japan'>
+								Japan
+							</option>
+							<option value = 'Jordan'>
+								Jordan
+							</option>
+							<option value = 'Kazakhstan'>
+								Kazakhstan
+							</option>
+							<option value = 'Kenya'>
+								Kenya
+							</option>
+							<option value = 'Kiribati'>
+								Kiribati
+							</option>
+							<option value = 'Korea,&#x20;North'>
+								Korea, North
+							</option>
+							<option value = 'Korea,&#x20;South'>
+								Korea, South
+							</option>
+							<option value = 'Kosovo'>
+								Kosovo
+							</option>
+							<option value = 'Kuwait'>
+								Kuwait
+							</option>
+							<option value = 'Kyrgyzstan'>
+								Kyrgyzstan
+							</option>
+							<option value = 'Laos'>
+								Laos
+							</option>
+							<option value = 'Latvia'>
+								Latvia
+							</option>
+							<option value = 'Lebanon'>
+								Lebanon
+							</option>
+							<option value = 'Lesotho'>
+								Lesotho
+							</option>
+							<option value = 'Liberia'>
+								Liberia
+							</option>
+							<option value = 'Libya'>
+								Libya
+							</option>
+							<option value = 'Liechtenstein'>
+								Liechtenstein
+							</option>
+							<option value = 'Lithuania'>
+								Lithuania
+							</option>
+							<option value = 'Luxembourg'>
+								Luxembourg
+							</option>
+							<option value = 'Madagascar'>
+								Madagascar
+							</option>
+							<option value = 'Malawi'>
+								Malawi
+							</option>
+							<option value = 'Malaysia'>
+								Malaysia
+							</option>
+							<option value = 'Maldives'>
+								Maldives
+							</option>
+							<option value = 'Mali'>
+								Mali
+							</option>
+							<option value = 'Malta'>
+								Malta
+							</option>
+							<option value = 'Marshall&#x20;Islands'>
+								Marshall Islands
+							</option>
+							<option value = 'Mauritania'>
+								Mauritania
+							</option>
+							<option value = 'Mauritius'>
+								Mauritius
+							</option>
+							<option value = 'Mexico'>
+								Mexico
+							</option>
+							<option value = 'Micronesia'>
+								Micronesia
+							</option>
+							<option value = 'Moldova'>
+								Moldova
+							</option>
+							<option value = 'Monaco'>
+								Monaco
+							</option>
+							<option value = 'Mongolia'>
+								Mongolia
+							</option>
+							<option value = 'Montenegro'>
+								Montenegro
+							</option>
+							<option value = 'Morocco'>
+								Morocco
+							</option>
+							<option value = 'Mozambique'>
+								Mozambique
+							</option>
+							<option value = 'Myanmar&#x20;&#x28;Burma&#x29;'>
+								Myanmar &#x28;Burma&#x29;
+							</option>
+							<option value = 'Namibia'>
+								Namibia
+							</option>
+							<option value = 'Nauru'>
+								Nauru
+							</option>
+							<option value = 'Nepal'>
+								Nepal
+							</option>
+							<option value = 'Netherlands'>
+								Netherlands
+							</option>
+							<option value = 'New&#x20;Zealand'>
+								New Zealand
+							</option>
+							<option value = 'Nicaragua'>
+								Nicaragua
+							</option>
+							<option value = 'Niger'>
+								Niger
+							</option>
+							<option value = 'Nigeria'>
+								Nigeria
+							</option>
+							<option value = 'North&#x20;Macedonia'>
+								North Macedonia
+							</option>
+							<option value = 'Norway'>
+								Norway
+							</option>
+							<option value = 'Oman'>
+								Oman
+							</option>
+							<option value = 'Pakistan'>
+								Pakistan
+							</option>
+							<option value = 'Palau'>
+								Palau
+							</option>
+							<option value = 'Panama'>
+								Panama
+							</option>
+							<option value = 'Papua&#x20;New&#x20;Guinea'>
+								Papua New Guinea
+							</option>
+							<option value = 'Paraguay'>
+								Paraguay
+							</option>
+							<option value = 'Peru'>
+								Peru
+							</option>
+							<option value = 'Philippines'>
+								Philippines
+							</option>
+							<option value = 'Poland'>
+								Poland
+							</option>
+							<option value = 'Portugal'>
+								Portugal
+							</option>
+							<option value = 'Qatar'>
+								Qatar
+							</option>
+							<option value = 'Romania'>
+								Romania
+							</option>
+							<option value = 'Russia'>
+								Russia
+							</option>
+							<option value = 'Rwanda'>
+								Rwanda
+							</option>
+							<option value = 'Saint&#x20;Kitts&#x20;and&#x20;Nevis'>
+								Saint Kitts and Nevis
+							</option>
+							<option value = 'Saint&#x20;Lucia'>
+								Saint Lucia
+							</option>
+							<option value = 'Saint&#x20;Vincent&#x20;and&#x20;the&#x20;Grenadines'>
+								Saint Vincent and the Grenadines
+							</option>
+							<option value = 'Samoa'>
+								Samoa
+							</option>
+							<option value = 'San&#x20;Marino'>
+								San Marino
+							</option>
+							<option value = 'Sao&#x20;Tome&#x20;and&#x20;Principe'>
+								Sao Tome and Principe
+							</option>
+							<option value = 'Saudi&#x20;Arabia'>
+								Saudi Arabia
+							</option>
+							<option value = 'Senegal'>
+								Senegal
+							</option>
+							<option value = 'Serbia'>
+								Serbia
+							</option>
+							<option value = 'Seychelles'>
+								Seychelles
+							</option>
+							<option value = 'Sierra&#x20;Leone'>
+								Sierra Leone
+							</option>
+							<option value = 'Singapore'>
+								Singapore
+							</option>
+							<option value = 'Slovakia'>
+								Slovakia
+							</option>
+							<option value = 'Slovenia'>
+								Slovenia
+							</option>
+							<option value = 'Solomon&#x20;Islands'>
+								Solomon Islands
+							</option>
+							<option value = 'Somalia'>
+								Somalia
+							</option>
+							<option value = 'South&#x20;Africa'>
+								South Africa
+							</option>
+							<option value = 'South&#x20;Sudan'>
+								South Sudan
+							</option>
+							<option value = 'Spain'>
+								Spain
+							</option>
+							<option value = 'Sri&#x20;Lanka'>
+								Sri Lanka
+							</option>
+							<option value = 'Sudan'>
+								Sudan
+							</option>
+							<option value = 'Suriname'>
+								Suriname
+							</option>
+							<option value = 'Sweden'>
+								Sweden
+							</option>
+							<option value = 'Switzerland'>
+								Switzerland
+							</option>
+							<option value = 'Syria'>
+								Syria
+							</option>
+							<option value = 'Taiwan'>
+								Taiwan
+							</option>
+							<option value = 'Tajikistan'>
+								Tajikistan
+							</option>
+							<option value = 'Tanzania'>
+								Tanzania
+							</option>
+							<option value = 'Thailand'>
+								Thailand
+							</option>
+							<option value = 'Togo'>
+								Togo
+							</option>
+							<option value = 'Tonga'>
+								Tonga
+							</option>
+							<option value = 'Trinidad&#x20;and&#x20;Tobago'>
+								Trinidad and Tobago
+							</option>
+							<option value = 'Tunisia'>
+								Tunisia
+							</option>
+							<option value = 'Turkey'>
+								Turkey
+							</option>
+							<option value = 'Turkmenistan'>
+								Turkmenistan
+							</option>
+							<option value = 'Tuvalu'>
+								Tuvalu
+							</option>
+							<option value = 'Uganda'>
+								Uganda
+							</option>
+							<option value = 'Ukraine'>
+								Ukraine
+							</option>
+							<option value = 'United&#x20;Arab&#x20;Emirates'>
+								United Arab Emirates
+							</option>
+							<option value = 'United&#x20;Kingdom'>
+								United Kingdom
+							</option>
+							<option value = 'United&#x20;States'>
+								United States
+							</option>
+							<option value = 'Uruguay'>
+								Uruguay
+							</option>
+							<option value = 'Uzbekistan'>
+								Uzbekistan
+							</option>
+							<option value = 'Vanuatu'>
+								Vanuatu
+							</option>
+							<option value = 'Vatican&#x20;City'>
+								Vatican City
+							</option>
+							<option value = 'Venezuela'>
+								Venezuela
+							</option>
+							<option value = 'Vietnam'>
+								Vietnam
+							</option>
+							<option value = 'Yemen'>
+								Yemen
+							</option>
+							<option value = 'Zambia'>
+								Zambia
+							</option>
+							<option value = 'Zimbabwe'>
+								Zimbabwe
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'Zip_Code' style="color:black;">
+							Zip Code
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'Zip_Code' aria-required = 'false' aria-label = 'Zip Code' name = 'Zip Code' aria-valuemax = '30' maxlength = '30'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+		<div id="contactPreferenceSection">
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF7' style="color:black;">
+							Who Should We Contact?
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF7' onChange = 'addAriaSelected894911000000429795()' aria-required = 'true' aria-label = 'LEADCF7' name = 'LEADCF7'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'You'>
+								Myself
+							</option>
+							<option value = 'Other'>
+								Someone Else
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'LEADCF118' style="color:black; font-size:15px">
+							Best time to connect
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld2'>
+						<input type = 'text' id = 'LEADCF118' aria-required = 'false' aria-label = 'LEADCF118' name = 'LEADCF118' aria-valuemax = '120' maxlength = '120' ftype = 'date' placeholder = 'DD/MM/YYYY' aria-placeholder = 'DD/MM/YYYY' tplid = '894911000000429795LEADCF118' onfocus = 'formCalender.stEv(event);formCalender.createCalendar(this);' autocomplete = 'off'; style="width:310px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+						</input>
+						<div id = 'template894911000000429795LEADCF118' onclick = 'formCalender.stEv(event);' class = 'tempCalDiv'>
+						</div>
+						<!--<div>-->
+							<select role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;"  name = 'LEADCF118hour'>
+								<option value = '01'>
+									01
+								</option>
+								<option value = '02'>
+									02
+								</option>
+								<option value = '03'>
+									03
+								</option>
+								<option value = '04'>
+									04
+								</option>
+								<option value = '05'>
+									05
+								</option>
+								<option value = '06'>
+									06
+								</option>
+								<option value = '07'>
+									07
+								</option>
+								<option value = '08'>
+									08
+								</option>
+								<option value = '09'>
+									09
+								</option>
+								<option value = '10'>
+									10
+								</option>
+								<option value = '11'>
+									11
+								</option>
+								<option value = '12'>
+									12
+								</option>
+							</select>
+							<select name = 'LEADCF118minute' role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+								<option value = '00'>
+									00
+								</option>
+								<option value = '01'>
+									01
+								</option>
+								<option value = '02'>
+									02
+								</option>
+								<option value = '03'>
+									03
+								</option>
+								<option value = '04'>
+									04
+								</option>
+								<option value = '05'>
+									05
+								</option>
+								<option value = '06'>
+									06
+								</option>
+								<option value = '07'>
+									07
+								</option>
+								<option value = '08'>
+									08
+								</option>
+								<option value = '09'>
+									09
+								</option>
+								<option value = '10'>
+									10
+								</option>
+								<option value = '11'>
+									11
+								</option>
+								<option value = '12'>
+									12
+								</option>
+								<option value = '13'>
+									13
+								</option>
+								<option value = '14'>
+									14
+								</option>
+								<option value = '15'>
+									15
+								</option>
+								<option value = '16'>
+									16
+								</option>
+								<option value = '17'>
+									17
+								</option>
+								<option value = '18'>
+									18
+								</option>
+								<option value = '19'>
+									19
+								</option>
+								<option value = '20'>
+									20
+								</option>
+								<option value = '21'>
+									21
+								</option>
+								<option value = '22'>
+									22
+								</option>
+								<option value = '23'>
+									23
+								</option>
+								<option value = '24'>
+									24
+								</option>
+								<option value = '25'>
+									25
+								</option>
+								<option value = '26'>
+									26
+								</option>
+								<option value = '27'>
+									27
+								</option>
+								<option value = '28'>
+									28
+								</option>
+								<option value = '29'>
+									29
+								</option>
+								<option value = '30'>
+									30
+								</option>
+								<option value = '31'>
+									31
+								</option>
+								<option value = '32'>
+									32
+								</option>
+								<option value = '33'>
+									33
+								</option>
+								<option value = '34'>
+									34
+								</option>
+								<option value = '35'>
+									35
+								</option>
+								<option value = '36'>
+									36
+								</option>
+								<option value = '37'>
+									37
+								</option>
+								<option value = '38'>
+									38
+								</option>
+								<option value = '39'>
+									39
+								</option>
+								<option value = '40'>
+									40
+								</option>
+								<option value = '41'>
+									41
+								</option>
+								<option value = '42'>
+									42
+								</option>
+								<option value = '43'>
+									43
+								</option>
+								<option value = '44'>
+									44
+								</option>
+								<option value = '45'>
+									45
+								</option>
+								<option value = '46'>
+									46
+								</option>
+								<option value = '47'>
+									47
+								</option>
+								<option value = '48'>
+									48
+								</option>
+								<option value = '49'>
+									49
+								</option>
+								<option value = '50'>
+									50
+								</option>
+								<option value = '51'>
+									51
+								</option>
+								<option value = '52'>
+									52
+								</option>
+								<option value = '53'>
+									53
+								</option>
+								<option value = '54'>
+									54
+								</option>
+								<option value = '55'>
+									55
+								</option>
+								<option value = '56'>
+									56
+								</option>
+								<option value = '57'>
+									57
+								</option>
+								<option value = '58'>
+									58
+								</option>
+								<option value = '59'>
+									59
+								</option>
+							</select>
+							<select name = 'LEADCF118ampm' role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+								<option value = 'AM'>
+									AM
+								</option>
+								<option value = 'PM'>
+									PM
+								</option>
+							</select>
+						<!--</div>-->
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+						<label for = 'LEADCF117' style="color:black; font-size:15px">
+							Best time to connect with you
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld2'>
+						<input type = 'text' id = 'LEADCF117' aria-required = 'false' aria-label = 'LEADCF117' name = 'LEADCF117' aria-valuemax = '120' maxlength = '120' ftype = 'date' placeholder = 'DD/MM/YYYY' aria-placeholder = 'DD/MM/YYYY' tplid = '894911000000429795LEADCF117' onfocus = 'formCalender.stEv(event);formCalender.createCalendar(this);' autocomplete = 'off'; style="width:310px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+						</input>
+						<div id = 'template894911000000429795LEADCF117' onclick = 'formCalender.stEv(event);' class = 'tempCalDiv'>
+						</div>
+						<!--<div>-->
+							<select role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;" name = 'LEADCF117hour'>
+								<option value = '01'>
+									01
+								</option>
+								<option value = '02'>
+									02
+								</option>
+								<option value = '03'>
+									03
+								</option>
+								<option value = '04'>
+									04
+								</option>
+								<option value = '05'>
+									05
+								</option>
+								<option value = '06'>
+									06
+								</option>
+								<option value = '07'>
+									07
+								</option>
+								<option value = '08'>
+									08
+								</option>
+								<option value = '09'>
+									09
+								</option>
+								<option value = '10'>
+									10
+								</option>
+								<option value = '11'>
+									11
+								</option>
+								<option value = '12'>
+									12
+								</option>
+							</select>
+							<select name = 'LEADCF117minute' role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+								<option value = '00'>
+									00
+								</option>
+								<option value = '01'>
+									01
+								</option>
+								<option value = '02'>
+									02
+								</option>
+								<option value = '03'>
+									03
+								</option>
+								<option value = '04'>
+									04
+								</option>
+								<option value = '05'>
+									05
+								</option>
+								<option value = '06'>
+									06
+								</option>
+								<option value = '07'>
+									07
+								</option>
+								<option value = '08'>
+									08
+								</option>
+								<option value = '09'>
+									09
+								</option>
+								<option value = '10'>
+									10
+								</option>
+								<option value = '11'>
+									11
+								</option>
+								<option value = '12'>
+									12
+								</option>
+								<option value = '13'>
+									13
+								</option>
+								<option value = '14'>
+									14
+								</option>
+								<option value = '15'>
+									15
+								</option>
+								<option value = '16'>
+									16
+								</option>
+								<option value = '17'>
+									17
+								</option>
+								<option value = '18'>
+									18
+								</option>
+								<option value = '19'>
+									19
+								</option>
+								<option value = '20'>
+									20
+								</option>
+								<option value = '21'>
+									21
+								</option>
+								<option value = '22'>
+									22
+								</option>
+								<option value = '23'>
+									23
+								</option>
+								<option value = '24'>
+									24
+								</option>
+								<option value = '25'>
+									25
+								</option>
+								<option value = '26'>
+									26
+								</option>
+								<option value = '27'>
+									27
+								</option>
+								<option value = '28'>
+									28
+								</option>
+								<option value = '29'>
+									29
+								</option>
+								<option value = '30'>
+									30
+								</option>
+								<option value = '31'>
+									31
+								</option>
+								<option value = '32'>
+									32
+								</option>
+								<option value = '33'>
+									33
+								</option>
+								<option value = '34'>
+									34
+								</option>
+								<option value = '35'>
+									35
+								</option>
+								<option value = '36'>
+									36
+								</option>
+								<option value = '37'>
+									37
+								</option>
+								<option value = '38'>
+									38
+								</option>
+								<option value = '39'>
+									39
+								</option>
+								<option value = '40'>
+									40
+								</option>
+								<option value = '41'>
+									41
+								</option>
+								<option value = '42'>
+									42
+								</option>
+								<option value = '43'>
+									43
+								</option>
+								<option value = '44'>
+									44
+								</option>
+								<option value = '45'>
+									45
+								</option>
+								<option value = '46'>
+									46
+								</option>
+								<option value = '47'>
+									47
+								</option>
+								<option value = '48'>
+									48
+								</option>
+								<option value = '49'>
+									49
+								</option>
+								<option value = '50'>
+									50
+								</option>
+								<option value = '51'>
+									51
+								</option>
+								<option value = '52'>
+									52
+								</option>
+								<option value = '53'>
+									53
+								</option>
+								<option value = '54'>
+									54
+								</option>
+								<option value = '55'>
+									55
+								</option>
+								<option value = '56'>
+									56
+								</option>
+								<option value = '57'>
+									57
+								</option>
+								<option value = '58'>
+									58
+								</option>
+								<option value = '59'>
+									59
+								</option>
+							</select>
+							<select name = 'LEADCF117ampm' role = 'combobox' aria-haspopup = 'listbox' style = "padding:0; width:70px; padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s;">
+								<option value = 'AM'>
+									AM
+								</option>
+								<option value = 'PM'>
+									PM
+								</option>
+							</select>
+						<!--</div>-->
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF2' style="color:black;">
+							Contact Person Name
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF2' aria-required = 'false' aria-label = 'LEADCF2' name = 'LEADCF2' aria-valuemax = '255' maxlength = '255'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF130' style="color:black;">
+							Contact Person Mobile
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF130' aria-required = 'false' aria-label = 'LEADCF130' name = 'LEADCF130' aria-valuemax = '30' maxlength = '30'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF16' style="color:black;">
+							Contact Person Email
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' ftype = 'email' autocomplete = 'false' id = 'LEADCF16' aria-required = 'false' aria-label = 'LEADCF16' name = 'LEADCF16' aria-valuemax = '100' crmlabel = '' maxlength = '100'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<!-- Raise request for field (multi-select styled dropdown) -->
+<div class="zcwf_row">
+  <div class="zcwf_col_lab" style="font-size:15px; font-family: Arial;">
+    <label for="LEADCF3" style="color:black;">Raise Request For<span class="multiselect-info-icon" data-tooltip="Choose all that apply">(ℹ)</span></label>
+  </div>
+  <div class="zcwf_col_fld">
+    <div class="multiselect-wrapper" id="customLEADCF3" style="">
+      <div class="multiselect-display">Select Request Type</div>
+      <div class="multiselect-options">
+        <div class="option" data-value="Sample">Sample</div>
+        <div class="option" data-value="Information">Information</div>
+        <div class="option" data-value="Meeting">Meeting</div>
+      </div>
+    </div>
+
+    <!-- Hidden actual multiselect for CRM -->
+    <select name="LEADCF3" id="LEADCF3" multiple style="display: none;">
+      <option value="Sample">Sample</option>
+      <option value="Information">Information</option>
+      <option value="Meeting">Meeting</option>
+    </select>
+
+    <div class="zcwf_col_help"></div>
+  </div>
+</div>
+
+
+
+				<div class="zcwf_row">
+  <div class="zcwf_col_lab" style="font-size:15px; font-style: Arial;">
+    <label for="LEADCF9" style="color:black;">Preferred Mode of Contact <span class="multiselect-info-icon" data-tooltip="Choose all that apply">(ℹ)</span></label>
+  </div>
+  <div class="zcwf_col_fld">
+    <div class="multiselect-wrapper" id="customLEADCF20">
+      <div class="multiselect-display">Select Contact Methods</div>
+      <div class="multiselect-options">
+        <div class="option" data-value="Call">Call</div>
+        <div class="option" data-value="Email">Email</div>
+        <div class="option" data-value="WhatsApp">WhatsApp</div>
+        <div class="option" data-value="SMS">SMS</div>
+      </div>
+    </div>
+
+    <!-- The original hidden multiselect -->
+    <select name="LEADCF9" id="LEADCF9" multiple style="display: none;">
+      <option value="Call">Call</option>
+      <option value="Email">Email</option>
+      <option value="WhatsApp">WhatsApp</option>
+      <option value="SMS">SMS</option>
+    </select>
+
+    <div class="zcwf_col_help"></div>
+  </div>
+</div>
+
+				
+				
+				
+				
+				
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF20' style="color:black;">
+							End Use of Yarn
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF20' aria-required = 'false' aria-label = 'LEADCF20' name = 'LEADCF20' aria-valuemax = '255' maxlength = '255'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF51' style="color:black;">
+							Quantity Needed &#x28;in tons&#x2f;month&#x29;
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'text' id = 'LEADCF51' aria-required = 'false' aria-label = 'LEADCF51' name = 'LEADCF51' aria-valuemax = '9' maxlength = '9'>
+						</input>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF12' style="color:black;">
+							Expected Purchase Timeline
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<select class = 'zcwf_col_fld_slt' role = 'combobox' aria-expanded = 'false' aria-haspopup = 'listbox' id = 'LEADCF12' onChange = 'addAriaSelected894911000000429795()' aria-required = 'false' aria-label = 'LEADCF12' name = 'LEADCF12'>
+							<option value = '-None-'>
+								-None-
+							</option>
+							<option value = 'Immediate'>
+								Immediate
+							</option>
+							<option value = '1-3&#x20;months'>
+								1-3 months
+							</option>
+							<option value = '&gt;3&#x20;months'>&gt;3 months
+							</option>
+						</select>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				</div>	
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab' style = 'font-size:15px; font-family: Arial;'>
+						<label for = 'LEADCF17' style="color:black;">
+							Remarks
+						</label>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<textarea style = 'font-family: Arial, sans-serif;' aria-multiline = 'true' id = 'LEADCF17' aria-required = 'false' aria-label = 'LEADCF17' name = 'LEADCF17'>
+						</textarea>
+						<div class = 'zcwf_col_help'>
+						</div>
+					</div>
+				</div>
+				<input type = 'text' type = 'hidden' style = 'display: none;' name = 'aG9uZXlwb3Q' value = ''/>
+				<div class = 'zcwf_row'>
+					<div class = 'zcwf_col_lab'>
+					</div>
+					<div class = 'zcwf_col_fld'>
+						<input type = 'submit' id = 'formsubmit' role = 'button' class = 'formsubmit zcwf_button' value = 'Submit' aria-label = 'Submit' title = 'Submit'>
+							<input type = 'reset' class = 'zcwf_button' role = 'button' name = 'reset' value = 'Reset' aria-label = 'Reset' title = 'Reset'>
+							</div>
+						</div>
+						<script type='text/javascript'>
+							var formCalender = {
+								userPattern: 'YYYY-MM-DD',
+								currDateObj: void 0, currMonth: void 0, currYear: void 0, currDate: void 0, currMonthEnd: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], monthName: void 0, days: void 0, displayPanel: void 0, isHideToday: void 0, calDefColor: '#515CCB',
+								weekdays: {
+									1: 'Sunday',
+									2: 'Monday',
+									3: 'Tuesday',
+									4: 'Wednesday',
+									5: 'Thursday',
+									6: 'Friday',
+									7: 'Saturday'
+								},
+								months: {
+									1: 'January',
+									2: 'February',
+									3: 'March',
+									4: 'April',
+									5: 'May',
+									6: 'June',
+									7: 'July',
+									8: 'August',
+									9: 'September',
+									10: 'October',
+									11: 'November',
+									12: 'December'
+								},
+								init: function (){
+									this.monthName = [{
+										html: 'January',
+										value: 0
+									},
+									{
+										html: 'February',
+										value: 1
+									},
+									{
+										html: 'March',
+										value: 2
+									},
+									{
+										html: 'April',
+										value: 3
+									},
+									{
+										html: 'May',
+										value: 4
+									},
+									{
+										html: 'June',
+										value: 5
+									},
+									{
+										html: 'July',
+										value: 6
+									},
+									{
+										html: 'August',
+										value: 7
+									},
+									{
+										html: 'September',
+										value: 8
+									},
+									{
+										html: 'October',
+										value: 9
+									},
+									{
+										html: 'November',
+										value: 10
+									},
+									{
+										html: 'December',
+										value: 11
+									}], this.days = [ 'ssunday', 'smonday', 'stuesday', 'swednesday', 'sthursday', 'sfriday', 'ssaturday' ], this.dayNamesShort = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ], this.daysBasedOnPrefernce = [ 'ssunday', 'smonday', 'stuesday', 'swednesday', 'sthursday', 'sfriday', 'ssaturday' ];
+									var e = this.daysBasedOnPrefernce[0];
+									this.daysBasedOnPrefernce.shift ( 1 ), this.daysBasedOnPrefernce.push ( e );
+									var t = this.dayNamesShort[0];
+									this.dayNamesShort.shift ( 1 ), this.dayNamesShort.push ( t ), this.currDateObj = new Date, this.currMonth = this.currDateObj.getMonth (), this.currYear = this.currDateObj.getFullYear (), this.currYear < 1e3 && ( this.currYear += 1900 ), this.currDate = this.currDateObj.getDate ()
+								},
+								getTitle: function (){
+									return this.monthName[ this.currMonth ].html + ' ' + this.currYear
+								},
+								createCalendar: function ( e ){
+									for ( var t = document.getElementsByClassName( 'tempCalDiv' ),a = t.length,r = 0; r < a; r++ ){
+										var n = t[ r ].style;
+										'block' === n.display && ( n.display = 'none' )
+									}
+									this.calendarNode = e, this.userPattern = this.calendarNode.placeholder;
+									var s = this.calendarNode.value, i =!1;
+									if ( s ){
+										var l = dateFormatConvert.validate ( s, this.userPattern );
+										l && ( this.currDate = l.getDate (), this.currMonth = l.getMonth (), this.currYear = l.getFullYear (), this.currYear < 1e3 && ( this.currYear = Number ( this.currYear ) + 1900 ))
+									}
+									else i =!0, formCalender.init ();
+									this.monthName || formCalender.init (), this.createDatePicker ( this.currDate, this.currMonth, this.currYear, i, !1 )
+								},
+								createDatePicker: function ( e, t, a, r, n ){
+									1 === this.currMonth && ( this.currMonthEnd[1] = this.currYear % 400 == 0 || this.currYear % 4 == 0 && this.currYear % 100 != 0 ? 29: 28 );
+									var s = new Date ( a, t, 1 ), i = 6, l = this.daysBasedOnPrefernce.indexOf ( this.days[ s.getDay ()]) + 1;
+									i = 31 === this.currMonthEnd[ t ] && l >= 6 || 30 === this.currMonthEnd[ t ] && 7 === l ? 7: 28 === this.currMonthEnd[ t ] && 1 === l ? 5: 6;
+									var d = this.getTitle ( e, a, t ), o = this.dayNamesShort, h = '<div id=\'calenDiv\'><i id=\'calArrow\' style=\'display:none;\' class=\'dIB SocialArrow\'></i><div><div>';
+									h += '<div class=\'aligncenter\'><span class=\'calNav dIB vaM yearNavLft\' onclick=\'formCalender.updateDatePicker(event,undefined, -1)\'><i class=\'arrow left mRMinus2\'></i><i class=\'arrow left\'></i></span><span class=\'calNav dLft dIB vaM\' onClick=\'formCalender.updateDatePicker(event,-1)\' id=\'pm\'><i class=\'arrow left\'></i></span><span class=\'sCalMon\'>' + d + '</span><span class=\'calNav dRgt vaM\' onClick =\'formCalender.updateDatePicker(event,1)\' id=\'nm\'><i class=\'arrow right\'></i></span><span class=\'calNav dIB vaM yearNavRgt\' onclick=\'formCalender.updateDatePicker(event,undefined, 1)\'><i class=\'arrow right\'></i><i class=\'arrow right mLMinus2\'></i></span></div>', h += '<table  class=\'calDay\'  id =\'weekDays\' style=\'color:#8b9ab9; font-size:8px; margin-left:0\'><tr> <th>' + o[0] + '</th> <th>' + o[1] + '</th><th>' + o[2] + '</th><th>' + o[3] + '</th> <th>' + o[4] + '</th> <th>' + o[5] + '</th> <th>' + o[6] + '</th></tr></table>', h += '</div>', h += '<table id=\'calHeader\' class=\'calDay\' style=\'margin-left:0; margin-top:-5px;\' width=\'100%\' cellspacing=\'0\' cellpadding=\'0\' border=\'0\' >';
+									var c = '', u = new Date, y = a || u.getFullYear (), v = e || u.getDate (), g = void 0 === t ? u.getMonth (): t,
+									m = u.getMonth (), p = u.getFullYear ();
+									u.getDate ();
+									m === t && a === p && ( c = ' style=\'display:none\'' );
+									for ( var f,D,M,b = s.getDay(); 1 !== b; )
+										s.setDate ( s.getDate ()-1 ), b = s.getDay ();
+									for ( var x = 1; x <= i; x++ ){
+										h += '<tr>';
+										for ( var Y = 1; Y < 8; Y++ ){
+											f = s.getMonth (), D = s.getFullYear (), M = s.getDate (), D + '-' + ( parseInt ( f ) + 1 ) + '-' + M;
+											var F = 'cdate lt-gray';
+											if ( M === v && D === y && f === g && ( F = 'cdate lt-gray' ),f === g && ( F = 'cdate' ),(r && M === v && m === g && p === y || !n && M === v && f === g && D === y ) && ( F = 'sel' ),n ){
+												var k = dateFormatConvert.validate ( this.calendarNode.value, formCalender.userPattern );
+												k && M === k.getDate () && f === k.getMonth () && D === k.getFullYear () && ( F = 'sel' )
+											}
+											h += '<td class=\'' + F + '\' onClick=\'formCalender.displaySelectedDate(\"' + M + ' ' + f + ' ' + D + '\")\'>' + M + '</td>', s.setDate ( s.getDate () + 1 )
+										}
+										h += '</tr>'
+									}
+									h += '</table>', h += '<div>', this.isHideToday || ( h += '<div id=\'calBtns\' class=\'pT15 pB15 fL\'><a' + c + ' class=\'cP fL\' href=\'javascript:;\' id=\'todayBtn\' onclick=\'formCalender.displaySelectedDate(\"today\")\'>Today</a>' ), h += '</div>', h += '</div>', h += '</div></div>';
+									var C = document.getElementById ( 'template' + this.calendarNode.getAttribute ( 'tplid' ));
+									C.innerHTML = h, C.style.display = 'block'
+								},
+								displaySelectedDate: function ( e, t ){
+									if ( !t )
+										t = this.calendarNode;
+									if ( 'today' === e ){
+										var a = new Date;
+										e = a.getDate () + ' ' + a.getMonth () + ' ' + a.getFullYear ()
+									}
+									e = e.split ( ' ' );
+									var r = dateFormatConvert.convertFormat ( new Date ( e[2], e[1], e[0]), this.userPattern );
+									t.value = r, t.focus (), t.placeholder = this.userPattern, formCalender.closeDatePicker (), t.addEventListener ( 'keyup', function ( e ){
+										formCalender.calendarNode = this;
+										var t = this.value, a = dateFormatConvert.validate ( t, formCalender.userPattern );
+										if ( a ){
+											var r = {};
+											r.date = a.getDate (), r.month = a.getMonth (), r.year = a.getFullYear (), formCalender.updateDatePicker ( e, void 0, void 0, r )
+										}
+									}),
+									t.blur ()
+								},
+								closeDatePicker: function (){
+									document.getElementById ( 'template' + this.calendarNode.getAttribute ( 'tplid' )).style.display = 'none'
+								},
+								updateDatePicker: function ( e, t, a, r ){
+									var n = document.getElementById ( 'template' + this.calendarNode.getAttribute ( 'tplid' ));
+									r && ( this.currDate = r.date, this.currMonth = r.month, this.currYear = r.year ), void 0 !== t ? 1 === t ? 11 === this.currMonth ? ( this.currMonth = 0, this.currYear++  ): this.currMonth++ : 0 === this.currMonth ? ( this.currMonth = 11, this.currYear--  ): this.currMonth-- : void 0 !== a && ( this.currYear = parseInt ( this.currYear ) + a ), this.createDatePicker ( this.currDate, this.currMonth, this.currYear, !1, !0 ), n.style.display = 'block'
+								},
+								stEv: function ( e ){
+									e || ( e = window.event ), e && ( e.cancelBubble =!0, e.stopPropagation && e.stopPropagation ())
+								}
+							};
+							window.onclick = function (){
+								for ( var e = document.getElementsByClassName( 'tempCalDiv' ),t = e.length,a = 0; a < t; a++ ){
+									var r = e[ a ];
+									if ( document.activeElement === document.querySelector( 'input[tplid=\'' + r.id.replace( 'template','' ) + '\']' ))
+										return ;
+									var n = e[ a ].style;
+									'block' === n.display && ( n.display = 'none' )
+								}
+							};
+							var dateFormatConvert = {
+								shortMon: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ], longMon: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ], dayArr: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], wod: 1, lm: 'userdate',
+								_dateObj: void 0, lLimit: 80, formats: [{
+									val: 'YYYY',
+									type: 'year',
+									regex: /\d{4}/, len: 4
+								},
+								{
+									val: 'GGGG',
+									type: 'year',
+									regex: /\d{4}/, len: 4, isWEG: !0
+								},
+								{
+									val: 'gggg',
+									type: 'year',
+									regex: /\d{4}/, len: 4, isWEG: !0
+								},
+								{
+									val: 'YY',
+									type: 'year',
+									regex: /\d{2}/, len: 2
+								},
+								{
+									val: 'GG',
+									type: 'year',
+									regex: /\d{2}/, len: 2, isWEG: !0
+								},
+								{
+									val: 'gg',
+									type: 'year',
+									regex: /\d{2}/, len: 2, isWEG: !0
+								},
+								{
+									val: 'MMMM',
+									type: 'month',
+									regex: /[A-z]{3,}/, long: !0, str: !0, array: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+								},
+								{
+									val: 'MMM',
+									str: !0, type: 'month',
+									regex: /[A-z]{3,}/, array: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ]
+								},
+								{
+									val: 'Mo',
+									suff: !0, type: 'month',
+									regex: /\d{1,2}(?=st|nd|rd|th)/, max: 12
+								},
+								{
+									val: 'MM',
+									type: 'month',
+									regex: /\d{2}/, len: 2, max: 12, alt: !0
+								},
+								{
+									val: 'M',
+									type: 'month',
+									regex: /\d{1,2}/, max: 12
+								},
+								{
+									val: 'DDDD',
+									type: 'date',
+									regex: /\d{3}/, len: 3, year: !0
+								},
+								{
+									val: 'DDDo',
+									type: 'date',
+									suff: !0, regex: /\d{1,3}(?=st|nd|rd|th)/, len: 3, year: !0, ignore: /\d{3}(?=st|nd|rd|th)/
+								},
+								{
+									val: 'DDD',
+									type: 'date',
+									regex: /\d{1,3}/, year: !0, ignore: /\d{3}/
+								},
+								{
+									val: 'Do',
+									type: 'date',
+									suff: !0, regex: /\d{1,2}(?=st|nd|rd|th)/
+								},
+								{
+									val: 'DD',
+									type: 'date',
+									regex: /\d{2}/, len: 2, alt: !0
+								},
+								{
+									val: 'D',
+									type: 'date',
+									regex: /\d{1,2}/
+								},
+								{
+									val: 'dddd',
+									type: 'longdate',
+									regex: /[A-z]{3,}/, long: !0, str: !0, array: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
+								},
+								{
+									val: 'ddd',
+									type: 'longdate',
+									regex: /[A-z]{3}/, str: !0, array: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
+								},
+								{
+									val: 'dd',
+									type: 'longdate',
+									regex: /[A-z]{2}/, str: !0, array: [ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ]
+								},
+								{
+									val: 'do',
+									type: 'longdate',
+									regex: /\d{1}(?=st|nd|rd|th)/, suff: !0
+								},
+								{
+									val: 'd',
+									type: 'longdate',
+									regex: /\d{1}/
+								}], parseFormat: function ( e, t ){
+									for ( var a,r = this.formats,n = [],s = r.length,i = 0; i < s; i++ ){
+										var l = r[ i ];
+										if ( !e.length )
+											break;
+										if ( e.indexOf( l.val ) > -1 ){
+											if ( t && l.alt ){
+												a =!0;
+												continue }
+											a && ( l.val = r[ i-1].val, l = r[ i-1]), a =!1, n.push ({
+												format: l,
+												index: e.indexOf ( l.val )
+											}),
+											e = e.replace ( l.val, Math.pow ( 10, l.val.length-1 )), i-- }
+										else;
+									}
+									return n.sort ( function ( e, t ){
+										return e.index-t.index
+									})
+								},
+								convertFormat: function ( e, t ){
+									this._dateObj = e;
+									var a = this._dateObj, r = this.parseFormat ( t, !0 ), n = {},
+									s = {
+										date: a.getDate (), month: a.getMonth (), year: a.getFullYear (), day: a.getDay ()
+									};
+									t = this.fmReplace ( t.replace ( /{{|}}/g, '' ), r );
+									for ( var i = r.length,l = 0; l < i; l++ ){
+										var d = r[ l ].format;
+										switch ( d.type ){
+											case 'date':
+												t = t.replace ( d.val + this.lm, this.crctLength ( d.year ? this.totdate ( s.month, this.isLeap ( s.year ), s.date ):
+												s.date, d.len, d.suff ));
+												break;
+											case 'month':
+												t = d.str ? t.replace ( d.val + this.lm, d.array[ s.month ]):
+												t.replace ( d.val + this.lm, this.crctLength ( s.month + 1, d.len, d.suff ));
+												break;
+											case 'year':
+												t = t.replace ( d.val + this.lm, 2 === d.len ? this.crctLength ( s.year % 100, 2 ):
+												4 === ( s.year + '' ).length ? s.year:
+												this.crctLength ( s.year, 4 )), n.year = n.year || [], n.year.push ( d );
+												break;
+											case 'day':
+											case 'week':
+												n.flag =!0, n[ d.type ] = n[ d.type ] || [], n[ d.type ].push ( d );
+												break;
+											case 'longdate':
+												t = d.str ? t.replace ( d.val + this.lm, d.array[ s.day ]):
+												t.replace ( d.val + this.lm, this.crctLength ( s.day, null, d.suff ))
+										}
+									}
+									return t.replace ( /{{|}}/g, '' )
+								},
+								fmReplace: function ( e, t ){
+									for ( var a = 0,r = t.length,n = 0; n < r; n++ )
+										e = e.slice ( 0, t[ n ].index + a ) + t[ n ].format.val + this.lm + e.slice ( t[ n ].index + a + t[ n ].format.val.length ), a += 8;
+									return e
+								},
+								totdate: function ( e, t, a ){
+									for ( var r = 0,n = 0; n < e; n++ )
+										r += this.dayArr[ n ], t && 1 === n && ( r += 1 );
+									return r + ( a || 0 )
+								},
+								crctLength: function ( e, t, a ){
+									var r = '';
+									if ( a && ( r = this.nthconv( e )),t ){
+										e = e.toString ();
+										for ( var n = 1; n < t; n++ )
+											e.length <= n && ( e = '0' + e )
+									}
+									return e + r
+								},
+								nthconv: function ( e ){
+									if ( e > 3 && e < 21 )
+										return 'th';
+									switch ( e % 10 ){
+										case 1:
+											return 'st';
+										case 2:
+											return 'nd';
+										case 3:
+											return 'rd';
+										default:
+											return 'th'
+									}
+								},
+								isLeap: function ( e ){
+									return 2 === ( e += '' ).length && ( e = this.getCorrectYear ( parseInt ( e ))), ( e = parseInt ( e )) % 4 == 0 && e % 100 != 0 || e % 400 == 0
+								},
+								getCorrectYear: function ( e ){
+									var t = e + '';
+									if ( e = parseInt( e ),2 === t.length ){
+										var a = ( new Date ).getFullYear (), r = parseInt ( a / 100 ), n = a % 100, s = ( n-this.lLimit + 100 ) % 100;
+										e = n > s ? e < s ? r + 1 + '' + this.crctLength ( e, 2 ): r + '' + this.crctLength ( e, 2 ): e < s ? r + '' + this.crctLength ( e, 2 ): r-1 + '' + this.crctLength ( e, 2 )
+									}
+									return e
+								},
+								valFormat: function ( e, t ){
+									for ( var a = {},r = new Date((new Date ).getFullYear(),0 ),n = this.parseFormat( t, !0 ),s = e,i = t = t.replace( /{{|}}/g,'' ),l = n.length,d = 0; d < l; d++ ){
+										var o, h = n[ d ].format;
+										switch ( h.type ){
+											case 'date':
+											case 'year':
+											case 'week':
+											case 'day':
+												h.regex.test ( e ) ? ( o = 'year' === h.type ? e.match ( h.regex )[ h.match || 0]:
+												parseInt ( e.match ( h.regex )[ h.match || 0]), a[ h.type ] = o, e = this.replaceVal ( e, h.regex, h.suff ), s = this.replaceVal ( s, h.regex, h.suff, h.val ), h.year && ( a.date = getDay ( a.date ).day )):
+												a.year && a.week ? ( a[ h.type ] = this.wod, t = t.replace ( h.val, '' ), i = i.replace ( h.val, '' )):
+												a[ h.type ] = 'Invalid', /date/i.test ( h.type ) && 0 === a[ h.type ] && ( a[ h.type ] = 'Invalid' );
+												break;
+											case 'month':
+												h.regex.test ( e ) ? ( o = this.getMonth ( e.match ( h.regex )[0], h.suff, h.str, h.long ), a.month = o.val, e = this.replaceVal ( e, o.mon || h.regex, h.suff ), s = this.replaceVal ( s, o.mon || h.regex, h.suff, h.val )):
+												a.month = 'Invalid', a.month < 0 && ( a.month = 'Invalid' );
+												break;
+											case 'longdate':
+												h.regex.test ( e ) && ( o = h.str ? this.findVal ( h.array, e.match ( h.regex )[0]):
+												parseInt ( e.match ( h.regex )[0]), a.longdate = this.isDef ( o.index ) ? o.index:
+												o, e = this.replaceVal ( e, o.mon || o, h.suff ), s = this.replaceVal ( s, o.mon || o, h.suff, h.val ))
+										}
+										t = t.replace ( h.valForm || h.val, '' )
+									}
+									if ( this.isDef( a.longdate ) && a.day && a.day !== a.longdate ? r.setFullYear( 'Invalid' ):this.isDef( a.year ) && r.setFullYear( this.getCorrectYear( a.year )),this.isDef( a.month ) && r.setMonth( a.month ),this.isDef( a.date ) && r.setDate( a.date <= this.dayArr[r.getMonth()] + ( 1 === r.getMonth() && this.isLeap( r.getFullYear()) ? 1:0 ) ? a.date:'Invalid' ),this._isCorrectFormat = e.length === t.length && i === s && this.validate( r ))
+										return r
+								},
+								validate: function ( e, t ){
+									var a = e.constructor;
+									if ( a === Date )
+										return this._dateObj = e, 'Invalid Date' !== e.toString ();
+									if ( a === String && t ){
+										var r = this.valFormat ( e, t );
+										return r && this._isCorrectFormat && ( this._format = t ), r
+									}
+								},
+								replaceVal: function ( e, t, a, r ){
+									return e = e.replace ( t, r || '' ), a && ( e = e.replace ( /st|nd|rd|th/, '' )), e
+								},
+								getMonth: function ( e, t, a, r ){
+									var n;
+									if ( a ){
+										var s = this.findVal ( r ? this.longMon: this.shortMon, e );
+										n = s.mon, e = s.index, ( !n || e > 11 ) && ( e = 'Invalid' )
+									}
+									else ( e = parseInt ( e )-1 ) > 11 && ( e = 'Invalid' );
+									return {
+										val: e,
+										mon: n
+									}
+								},
+								findVal: function ( e, t ){
+									var a, r, n = e.length;
+									for ( r = 0; r < n; r++ )
+										if ( new RegExp( e[r]).test( t )){
+										a = e[ r ];
+										break }
+									return {
+										mon: a,
+										index: r
+									}
+								},
+								isDef: function ( e ){
+									return void 0 !== e
+								}
+							};
+						</script>
+						<style>
+							#calenDiv{
+								padding: 10px;
+								display: table;
+								width: 195px;
+								font-family: helvetica,sans-serif !important;
+							}
+							.calNav {width: 20px;
+							height: 15px;
+							display
+							:inline-block;position: relative;
+							top: 4px;
+							cursor: pointer }
+							#calenDiv .calNav {width: 15px;
+							}
+							#calenDiv .yearNavLft {right: 10px;
+							}
+							#calenDiv .yearNavRgt {left: 10px;
+							}
+							#calenDiv .dLft {right: 5px;
+							}
+							#calenDiv .dRgt {left: 5px;
+							}
+							.dLft {right
+							:10px;opacity: 0.8;
+							}
+							.dRgt {left
+							:10px;opacity: 0.8;
+							}
+							.yearNavLft {right: 15px;
+							}
+							.yearNavRgt {left
+							:15px;opacity: 0.6;
+							}
+							#calenDiv table.calDay {border-spacing: 6px;
+							margin-top: 0 }
+							#calenDiv table.calDay td{
+							padding: 3px 4px;
+							font-size: 11px }
+							#calenDiv table.calDay th {padding: 0 3px;
+							font-size: 11px;
+							padding-right: 0;
+							padding-left: 1px;
+							color:  #888;
+							width: 22px;
+							cursor: default;
+							border-radius: 3px;
+							text-align: center;
+							font-weight: normal;
+							}
+							#calenDiv #weekDays {margin-top: 10px;
+							margin-bottom: 5px;
+							border-top: 1px solid  #c0c6cc;
+							border-bottom: 1px solid  #c0c6cc;
+							border-spacing: 5px;
+							margin-left: 0;
+							color:  #8b9ab9;
+							}
+							#calenDiv .sCalMon {cursor: default;
+							display: inline-block;
+							color:  #888;
+							width: 110px;
+							font-size: 12px;
+							}
+							table.calDay td:hover {background-color: #e8e8e8;
+							}
+							table.calDay{
+							color: #222;
+							margin-left: -10px;
+							border-spacing: 12px;
+							}
+							table.calDay td, table.calDay th{
+							font-size: var(--crm-extra-medium-font-size);
+							cursor: default;
+							border-radius: 3px;
+							text-align: center;
+							padding: 3px 5px;
+							font-family: helvetica,sans-serif !important;
+							}
+							table.calDay td.sel, table.calDay td.sel:hover {color: #fff;
+							background: #b3b3b3;
+							border-radius: 3px;
+							}
+							table.calDay td.noNum, table.calDay td.lt-gray {color: #c1c1c1;
+							}
+							.aligncenter {text-align: center;
+							}
+							#calBtns a,  .lyteCalBtns .lyteCalCurrentDate a {color: var(--linkColor);
+							font-size: 14px;
+							text-decoration: none;
+							}
+							#calenDiv #calBtns{
+							width: 183px;
+							margin-left: 10px;
+							border-top: 0;
+							font-size: 11px;
+							padding: 3px 0 12px !important;
+							}
+							.arrow {border: solid  #666;
+							border-width: 0 1px 1px 0;
+							display: inline-block;
+							height: 6px;
+							width: 6px;
+							}
+							#calenDiv .right {transform: rotate(-45deg);
+							-webkit-transform: rotate(-45deg);
+							}
+							#calenDiv .left {transform: rotate(135deg);
+							-webkit-transform: rotate(135deg);
+							}
+							.mLMinus2 {margin-left: -2px;
+							}
+							.mRMinus2 {margin-right: -2px;
+							}
+							.vaM {vertical-align: middle;
+							}
+						.tempCalDiv {
+    position: absolute !important;
+    z-index: 10000;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+  }
+
+  .zcwf_col_fld {
+    position: relative;
+  }
+						</style>
+						<script>
+						  
+						  
+						  
+						  
+						  
+						  
+						 document.getElementById("webform894911000000429795").addEventListener("submit", function (e) {
+    const userType = document.getElementById("LEADCF36").value;
+    const limitedTypes = ["Investor", "Media/PR", "Other"];
+
+    if (limitedTypes.includes(userType)) {
+        const multiselectFields = [
+            { id: "LEADCF30", wrapperId: "customLEADCF30" }, // Product Inquiry Type
+            { id: "LEADCF3", wrapperId: "customLEADCF3" }, // Raise Request For
+            { id: "LEADCF9",  wrapperId: "customLEADCF20"  }  // Preferred Mode of Contact
+        ];
+
+        multiselectFields.forEach(field => {
+            // Clear hidden <select> options
+            const selectEl = document.getElementById(field.id);
+            if (selectEl) {
+                for (let i = 0; i < selectEl.options.length; i++) {
+                    selectEl.options[i].selected = false;
+                }
+            }
+
+            // Clear custom multiselect UI
+            const wrapper = document.getElementById(field.wrapperId);
+            if (wrapper) {
+                const display = wrapper.querySelector(".multiselect-display");
+                const options = wrapper.querySelectorAll(".option");
+                if (display) display.textContent = "Select Options";
+                options.forEach(opt => opt.classList.remove("selected"));
+            }
+        });
+    }
+});
+
+						  
+						  
+						  
+						  
+			
+		document.addEventListener("DOMContentLoaded", function () {
+    const knowMoreField = document.getElementById("LEADCF36");
+    const countryRow = document.querySelector("#LEADCF15").closest(".zcwf_row");
+    const zipRow = document.querySelector("#Zip_Code").closest(".zcwf_row");
+
+    // Initial hide
+    countryRow.style.display = "none";
+    zipRow.style.display = "none";
+
+    // On change handler
+    knowMoreField.addEventListener("change", function () {
+      const value = knowMoreField.value;
+      if (value == "Interested in buying our product") {
+        countryRow.style.display = "block";
+        zipRow.style.display = "block";
+      } else {
+        countryRow.style.display = "none";
+        zipRow.style.display = "none";
+      }
+    });
+  });	
+			
+			
+			
+			
+						  
+						  
+						  
+						  
+						  
+						  document.addEventListener("DOMContentLoaded", function () {
+  const moreAboutYouField = document.getElementById("LEADCF36");
+
+  // Fields to toggle
+  const fieldsToToggle = [
+    "LEADCF18", // Choose the option that best describes you
+    "LEADCF10_domestic", // Inquiry Type (radio)
+    "LEADCF10_export",
+    "LEADCF30", // Product Inquiry Type
+    "LEADCF31", // Other Product
+    "LEADCF7",  // Who Should We Contact?
+    "LEADCF118", // Best time to connect
+    "LEADCF117",// Best time to connect with you
+    "LEADCF152", // Other Contact
+    "LEADCF3",  // Raise Request For
+    "LEADCF9",  // Preferred Mode of Contact
+    "LEADCF20", // End Use of Yarn
+    "LEADCF51",  // Quantity Needed
+    "LEADCF12", // Expected Purchase Timeline
+    "Description", // Remarks
+    "LEADCF4",
+    "LEADCF14",
+    "State",
+    "Street"
+  ];
+
+  // Row selectors
+  function getRow(id) {
+    const el = document.getElementById(id);
+    return el ? el.closest(".zcwf_row") : null;
+  }
+
+  // Utility: Hide and reset fields
+  function resetFields() {
+    fieldsToToggle.forEach(fieldId => {
+      const el = document.getElementById(fieldId);
+      const row = getRow(fieldId);
+      if (el && row) {
+        row.style.display = "none";
+        if (el.type === "radio" || el.type === "checkbox") {
+          el.checked = false;
+        } else if (el.tagName === "SELECT") {
+          el.selectedIndex = 0;
+        } else {
+          el.value = "";
+        }
+        el.required = false;
+      }
+    });
+  }
+
+  // On change
+  moreAboutYouField.addEventListener("change", function () {
+    resetFields(); // Always clear first
+
+    // Show fields only when "Interested in buying our product" is selected
+    if (moreAboutYouField.value === "Interested in buying our product") {
+      const showField = id => {
+        const el = document.getElementById(id);
+        const row = getRow(id);
+        if (el && row) row.style.display = "block";
+      };
+
+      showField("LEADCF18");
+      showField("LEADCF10_domestic");
+      showField("LEADCF10_export");
+      showField("LEADCF30");
+      showField("LEADCF7");
+      showField("LEADCF3");
+      showField("LEADCF9");
+      showField("LEADCF20");
+      showField("LEADCF51");
+      showField("LEADCF12");
+      showField("Description");
+    }
+
+    // Show "Please Specify" if "Other" is selected
+    const specifyFieldRow = getRow("LEADCF37");
+    const specifyField = document.getElementById("LEADCF37");
+    if (moreAboutYouField.value === "Other") {
+      specifyFieldRow.style.display = "block";
+      specifyField.required = true;
+    } else {
+      specifyFieldRow.style.display = "none";
+      specifyField.required = false;
+      specifyField.value = "";
+    }
+  });
+
+  // Trigger change on load (to apply correct visibility)
+  moreAboutYouField.dispatchEvent(new Event("change"));
+});
+
+
+
+						  
+						  
+						  
+						  
+						  
+						document.addEventListener("DOMContentLoaded", function () {
+    const describeYouField = document.getElementById("LEADCF18");
+    const otherContactRow = document.getElementById("LEADCF152").closest(".zcwf_row");
+
+    // Initially hide the Other Contact field
+    otherContactRow.style.display = "none";
+
+    describeYouField.addEventListener("change", function () {
+      if (describeYouField.value === "Other" || describeYouField.value === "Others") {
+        otherContactRow.style.display = "block";
+        otherContactRow.required = true;
+      } else {
+        otherContactRow.style.display = "none";
+        document.getElementById("LEADCF152").value = ""; // Clear field optionally
+      }
+    });
+  });  
+						  
+						  
+						  
+						  
+						  
+						  document.addEventListener("DOMContentLoaded", function () {
+    const moreAboutYouField = document.getElementById("LEADCF36");
+    const pleaseSpecifyRow = document.querySelector("#LEADCF37").closest(".zcwf_row");
+
+    // Initially hide the field
+    pleaseSpecifyRow.style.display = "none";
+
+    moreAboutYouField.addEventListener("change", function () {
+      if (moreAboutYouField.value === "Other") {
+        pleaseSpecifyRow.style.display = "block";
+        pleaseSpecifyRow.required = true;
+      } else {
+        pleaseSpecifyRow.style.display = "none";
+        document.getElementById("LEADCF37").value = ""; // Optional: clear the input
+      }
+    });
+  });
+						  
+						  
+						  
+						document.addEventListener("DOMContentLoaded", function () {
+    const triggerField = document.getElementById("LEADCF36");
+
+    const fieldIds = [
+      "LEADCF18",        // Choose the option that best describes you
+      "LEADCF10_domestic", // Inquiry Type - Domestic
+      "LEADCF10_export",   // Inquiry Type - Export
+      "LEADCF30",  // Product Inquiry Type custom UI
+      "LEADCF7",         // Who Should We Contact?
+      "LEADCF3",       // Raise Request For
+      "LEADCF9",       // Preferred Mode of Contact
+      "LEADCF20",        // End Use of Yarn
+      "LEADCF51",       // Quantity Needed
+      "LEADCF12"       // Expected Purchase Timeline
+    ];
+
+    function toggleConditionalFields() {
+      const selected = triggerField.value.trim();
+      const shouldShow = selected === "Interested in buying our product";
+
+      fieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          const row = el.closest(".zcwf_row");
+          if (row) {
+            row.style.display = shouldShow ? "block" : "none";
+          }
+        }
+      });
+
+      // Special handling for custom Product Inquiry Type multiselect
+      const customMulti = document.getElementById("customLEADCF30");
+      if (customMulti) {
+        const wrapper = customMulti.closest(".zcwf_row");
+        if (wrapper) {
+          wrapper.style.display = shouldShow ? "block" : "none";
+        }
+      }
+    }
+
+    // Initial check
+    toggleConditionalFields();
+
+    // Event listener
+    triggerField.addEventListener("change", toggleConditionalFields);
+  });
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  document.addEventListener("DOMContentLoaded", function () {
+  const wrapper = document.getElementById("customLEADCF20");
+  const display = wrapper.querySelector(".multiselect-display");
+  const optionsBox = wrapper.querySelector(".multiselect-options");
+  const options = optionsBox.querySelectorAll(".option");
+  const hiddenSelect = document.getElementById("LEADCF9");
+
+  let selectedValues = [];
+
+  display.addEventListener("click", function () {
+    optionsBox.style.display = optionsBox.style.display === "block" ? "none" : "block";
+  });
+
+  options.forEach(option => {
+    option.addEventListener("click", function () {
+      const value = option.getAttribute("data-value");
+      const isSelected = selectedValues.includes(value);
+
+      if (isSelected) {
+        selectedValues = selectedValues.filter(val => val !== value);
+        option.classList.remove("selected");
+      } else {
+        selectedValues.push(value);
+        option.classList.add("selected");
+      }
+
+      // Update display
+      display.textContent = selectedValues.length ? selectedValues.join(", ") : "Select Contact Methods";
+
+      // Update hidden select
+      [...hiddenSelect.options].forEach(opt => {
+        opt.selected = selectedValues.includes(opt.value);
+      });
+    });
+  });
+
+  // Hide dropdown if clicked outside
+  document.addEventListener("click", function (e) {
+    if (!wrapper.contains(e.target)) {
+      optionsBox.style.display = "none";
+    }
+  });
+});
+
+
+
+
+
+
+
+
+						  
+						  
+						  // 	<!--Hide State, City and Street-->
+						
+					document.addEventListener("DOMContentLoaded", function () {
+    const exportRadio = document.getElementById("LEADCF10_export");
+    const allRadioButtons = document.querySelectorAll('input[name="LEADCF10"]');
+    
+    // const streetField = document.getElementById("streetField");
+    const cityField = document.getElementById("cityField");
+    const stateField = document.getElementById("stateField");
+    const landlineField = document.getElementById("landlinefield");
+
+    function toggleAddressFields() {
+      const selected = document.querySelector('input[name="LEADCF10"]:checked');
+      const isExport = selected && selected.value === "Domestic";
+
+      // streetField.style.display = isExport ? "block" : "none";
+      cityField.style.display = isExport ? "block" : "none";
+      stateField.style.display = isExport ? "block" : "none";
+      landlineField.style.display = isExport ? "block" : "none";
+    }
+
+    allRadioButtons.forEach(radio => {
+      radio.addEventListener("change", toggleAddressFields);
+    });
+
+    toggleAddressFields(); // Initial check on load
+  });
+  
+  
+  
+  
+  
+  
+						  
+						
+			  document.addEventListener("DOMContentLoaded", function () {
+  const wrapper = document.getElementById("customLEADCF3");
+  const display = wrapper.querySelector(".multiselect-display");
+  const optionsBox = wrapper.querySelector(".multiselect-options");
+  const options = optionsBox.querySelectorAll(".option");
+  const hiddenSelect = document.getElementById("LEADCF3");
+
+  let selectedValues = [];
+
+  display.addEventListener("click", function () {
+    optionsBox.style.display = optionsBox.style.display === "block" ? "none" : "block";
+  });
+
+  options.forEach(option => {
+    option.addEventListener("click", function () {
+      const value = option.getAttribute("data-value");
+      const isSelected = selectedValues.includes(value);
+
+      if (isSelected) {
+        selectedValues = selectedValues.filter(val => val !== value);
+        option.classList.remove("selected");
+      } else {
+        selectedValues.push(value);
+        option.classList.add("selected");
+      }
+
+      // Update display
+      display.textContent = selectedValues.length ? selectedValues.join(", ") : "Select Contact Methods";
+
+      // Update hidden select
+      [...hiddenSelect.options].forEach(opt => {
+        opt.selected = selectedValues.includes(opt.value);
+      });
+    });
+  });
+
+  // Hide dropdown if clicked outside
+  document.addEventListener("click", function (e) {
+    if (!wrapper.contains(e.target)) {
+      optionsBox.style.display = "none";
+    }
+  });
+});
+
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  // ******************set mandotory*******************
+						  
+						  
+	  function validateRequiredFields() {
+    const requiredFields = [
+      { id: "First_Name", name: "First Name" },
+      { id: "Last_Name", name: "Last Name" },
+      { id: "Company", name: "Company" },
+      { id: "Email", name: "Email" },
+      { id: "Mobile", name: "Mobile" }
+    ];
+
+    let missingFields = [];
+
+    requiredFields.forEach(field => {
+      const value = document.getElementById(field.id)?.value.trim();
+      if (!value) {
+        missingFields.push(field.name);
+      }
+    });
+
+    if (missingFields.length > 0) {
+      alert("Please fill in the following mandatory fields:\n- " + missingFields.join("\n- "));
+      return false; // Prevent form submission
+    }
+
+    return true; // Allow submission
+  }
+
+  // Attach validation to form submit
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("webform894911000000429795");
+    form.addEventListener("submit", function (e) {
+      if (!validateRequiredFields()) {
+        e.preventDefault(); // Stop form from submitting
+      }
+    });
+  });		  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+
+
+
+// *****************************Product Inquiry Type*************************
+
+document.addEventListener("DOMContentLoaded", function () {
+    const wrapper = document.getElementById("customLEADCF30");
+    const display = wrapper.querySelector(".multiselect-display");
+    const optionsBox = wrapper.querySelector(".multiselect-options");
+    const options = optionsBox.querySelectorAll(".option");
+    const hiddenSelect = document.getElementById("LEADCF30");
+
+    let selectedValues = [];
+
+    display.addEventListener("click", function () {
+      optionsBox.style.display = optionsBox.style.display === "block" ? "none" : "block";
+    });
+
+    options.forEach(option => {
+      option.addEventListener("click", function () {
+        const value = option.getAttribute("data-value");
+        const isSelected = selectedValues.includes(value);
+
+        if (isSelected) {
+          selectedValues = selectedValues.filter(val => val !== value);
+          option.classList.remove("selected");
+        } else {
+          selectedValues.push(value);
+          option.classList.add("selected");
+        }
+
+        // Update display
+        display.textContent = selectedValues.length ? selectedValues.join(", ") : "Select Product Types";
+
+        // Update hidden select
+        [...hiddenSelect.options].forEach(opt => {
+          opt.selected = selectedValues.includes(opt.value);
+        });
+      });
+    });
+
+    // Hide dropdown if clicked outside
+    document.addEventListener("click", function (e) {
+      if (!wrapper.contains(e.target)) {
+        optionsBox.style.display = "none";
+      }
+    });
+  });
+  // ****************************************************************************
+  
+  
+  
+						  
+						  
+						   document.addEventListener('DOMContentLoaded', function () {
+    const productInquirySelect = document.getElementById('LEADCF30');
+    const otherProductField = document.getElementById('LEADCF31').closest('.zcwf_row');
+
+    // const typeOfContactSelect = document.getElementById('LEADCF18');
+    // const otherContactField = document.getElementById('LEADCF152').closest('.zcwf_row');
+
+    // Hide both fields initially
+    otherProductField.style.display = 'none';
+    // otherContactField.style.display = 'none';
+
+    // Handler for Product Inquiry Type (Multi-select)
+    productInquirySelect.addEventListener('change', function () {
+      const selectedOptions = Array.from(productInquirySelect.selectedOptions).map(opt => opt.value);
+      if (selectedOptions.includes('Other')) {
+        otherProductField.style.display = 'flex';
+      } else {
+        otherProductField.style.display = 'none';
+      }
+    });
+
+    // Handler for Type of Contact (Single-select)
+    // typeOfContactSelect.addEventListener('change', function () {
+    //   if (typeOfContactSelect.value === 'Other') {
+    //     otherContactField.style.display = 'flex';
+    //   } else {
+    //     otherContactField.style.display = 'none';
+    //   }
+    // });
+  });
+  
+  
+   document.addEventListener("DOMContentLoaded", function () {
+    const contactSelect = document.getElementById("LEADCF7");
+
+    // Field wrappers
+    const nameField = document.getElementById("LEADCF2").closest(".zcwf_row");
+    const emailField = document.getElementById("LEADCF16").closest(".zcwf_row");
+    const mobileField = document.getElementById("LEADCF130").closest(".zcwf_row");
+    const bestTimeOtherField = document.getElementById("LEADCF118").closest(".zcwf_row");
+    const bestTimeSelfField = document.getElementById("LEADCF117").closest(".zcwf_row");
+
+    function updateVisibility() {
+      const selected = contactSelect.value;
+
+      if (selected === "You") {
+        // Show only the "yourself" best time field
+        bestTimeSelfField.style.display = "none";
+        nameField.style.display = "none";
+        emailField.style.display = "none";
+        mobileField.style.display = "none";
+        bestTimeOtherField.style.display = "block";
+      } else if (selected === "Other") {
+        // Show the "other" contact fields
+        nameField.style.display = "block";
+        emailField.style.display = "block";
+        mobileField.style.display = "block";
+        bestTimeOtherField.style.display = "none";
+        bestTimeSelfField.style.display = "block";
+      } else {
+        // Default/None selected
+        nameField.style.display = "none";
+        emailField.style.display = "none";
+        mobileField.style.display = "none";
+        bestTimeOtherField.style.display = "none";
+        bestTimeSelfField.style.display = "none";
+      }
+    }
+
+    // Initial call on load
+    updateVisibility();
+
+    // Attach change listener
+    contactSelect.addEventListener("change", updateVisibility);
+  });
+
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+							function addAriaSelected894911000000429795 (){
+								var optionElem = event.target;
+								var previousSelectedOption = optionElem.querySelector ( '[aria-selected=true]' );
+								if ( previousSelectedOption ){
+									previousSelectedOption.removeAttribute ( 'aria-selected' );
+								}
+								optionElem.querySelectorAll ( 'option' )[ optionElem.selectedIndex ].ariaSelected = 'true';
+							}
+							function validateEmail894911000000429795 (){
+								var form = document.forms[ 'WebToLeads894911000000429795' ];
+								var emailFld = form.querySelectorAll ( '[ftype=email]' );
+								var i;
+								for ( i = 0; i < emailFld.length; i++ ){
+									var emailVal = emailFld[ i ].value;
+									if ((emailVal.replace( /^\s+|\s+$/g,'' )).length != 0 ){
+										var atpos = emailVal.indexOf ( '@' );
+										var dotpos = emailVal.lastIndexOf ( '.' );
+										if ( atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length ){
+											alert ( 'Please enter a valid email address. ' );
+											emailFld[ i ].focus ();
+											return false;
+										}
+									}
+								}
+								return true;
+							}
+							function validateDateFormat894911000000429795 (){
+								var form = document.forms[ 'WebToLeads894911000000429795' ];
+								var dateFlds = form.querySelectorAll ( '[ftype=date]' );
+								var i;
+								for ( i = 0; i < dateFlds.length; i++ ){
+									var dateFld = dateFlds[ i ];
+									var usrPtrn = dateFld.placeholder;
+									var dateVal = dateFld.value;
+									if ( dateVal.trim() != '' ){
+										var vald = dateFormatConvert.validate ( dateVal, usrPtrn );
+										if ( !vald ){
+											alert ( 'Please enter a valid date ' );
+											dateFld.focus ();
+											return false;
+										}
+									}
+								}
+								return true;
+							}
+							function checkMandatory894911000000429795 (){
+								var mndFileds = new Array ( 'First Name', 'Last Name', 'Email', 'Mobile', 'LEADCF10',  'LEADCF15', 'Company','LEADCF48' );
+								// var fldLangVal = new Array ( 'First\x20Name', 'Last\x20Name', 'Email', 'Mobile', 'Company');
+								for ( i = 0; i < mndFileds.length; i++ ){
+									var fieldObj = document.forms[ 'WebToLeads894911000000429795' ][ mndFileds[ i ]];
+									if ( fieldObj ){
+										if (((fieldObj.value ).replace( /^\s+|\s+$/g,'' )).length == 0 ){
+											if ( fieldObj.type == 'file' ){
+												alert ( 'Please select a file to upload.' );
+												fieldObj.focus ();
+												return false;
+											}
+											alert ( fldLangVal[ i ] + ' cannot be empty.' );
+											fieldObj.focus ();
+											return false;
+										}
+										else if ( fieldObj.nodeName == 'SELECT' ){
+											if ( fieldObj.options[fieldObj.selectedIndex].value == '-None-' ){
+												alert ( fldLangVal[ i ] + ' cannot be none.' );
+												fieldObj.focus ();
+												return false;
+											}
+										}
+										else if ( fieldObj.type == 'checkbox' ){
+											if ( fieldObj.checked == false ){
+												alert ( 'Please accept  ' + fldLangVal[ i ]);
+												fieldObj.focus ();
+												return false;
+											}
+										}
+										try {
+											if ( fieldObj.name == 'Last Name' ){
+												name = fieldObj.value;
+											}
+										}
+										catch ( e ){}
+									}
+								}
+								if ( !validateEmail894911000000429795()){
+									return false;
+								}
+								if ( !validateDateFormat894911000000429795()){
+									return false;
+								}
+								var urlparams = new URLSearchParams ( window.location.search );
+								if ( urlparams.has( 'service' ) && ( urlparams.get( 'service' ) === 'smarturl' )){
+									var webform = document.getElementById ( 'webform894911000000429795' );
+									var service = urlparams.get ( 'service' );
+									var smarturlfield = document.createElement ( 'input' );
+									smarturlfield.setAttribute ( 'type', 'hidden' );
+									smarturlfield.setAttribute ( 'value', service );
+									smarturlfield.setAttribute ( 'name', 'service' );
+									webform.appendChild ( smarturlfield );
+								}
+								document.querySelector ( '.crmWebToEntityForm .formsubmit' ).setAttribute ( 'disabled', true );
+							}
+							function tooltipShow894911000000429795 ( el ){
+								var tooltip = el.nextElementSibling;
+								var tooltipDisplay = tooltip.style.display;
+								if ( tooltipDisplay == 'none' ){
+									var allTooltip = document.getElementsByClassName ( 'zcwf_tooltip_over' );
+									for ( i = 0; i < allTooltip.length; i++ ){
+										allTooltip[ i ].style.display = 'none';
+									}
+									tooltip.style.display = 'block';
+								}
+								else {
+									tooltip.style.display = 'none';
+								}
+							}
+						</script>
+						<!-- Do not remove this --- Analytics Tracking code starts -->
+						<script id='wf_anal' src='https://crm.zohopublic.in/crm/WebFormAnalyticsServeServlet?rid=cade1fbfb1e5c1140b4ee91eb8e876ece9efe1ae3115705610cb590919b6ae1a9e6530b0bcdaddbca7e34c740accfbe8gida46844b67deeda6a3096e69cd021c4b6add0a53f9ab5f8ef40c2d11f74eeeac5gid1fe9da0c46d7ea5ceb11ebb7fcd2e0fb0c0418674143a33ab0b00573766318c9gid308de9c065b35ff8f6ea8fa81eb54af8c43c22e790fac82410500f10da44fd36&tw=d6725c17d1b213db716cf80f84b19d825b8af9a758b50db6841f78daf228a263'></script>
+						<!-- Do not remove this --- Analytics Tracking code ends. -->
+					</form>
+				</div>
